@@ -4,7 +4,6 @@ import 'react-quill/dist/quill.snow.css';
 import ReactQuill, { Quill } from 'react-quill';
 import axios from 'axios'
 import Modal from 'react-modal';
-import Add from '@material-ui/icons/Add';
 import qs from 'qs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'

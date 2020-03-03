@@ -60,11 +60,9 @@ function App() {
         setLoading(false)
     }, 7000);
     useEffect(() => {
-      //  getAll()
-        getdt()
-    },[])
-  async  function getdt() {
-      
+    }, [])
+    async function getdt() {
+
         firebase.database().ref('barberbook/hanoi').on('value', function (snapshot) {
             console.log(snapshot.val())
             let arr = [];
@@ -81,30 +79,25 @@ function App() {
     }
 
     return (
-        loading == true ? < div className='loading' >
-
-            <BallBeat color={'#123abc'}
-                loading={loading}/>
-                </div > :
-                   <BrowserRouter>
-                    <Switch>
-                    <Route exact path='/' render={(props) => <Index listSlider={listSlider}  listnews={listnews} />}/>
-                   <Route  path="/news/:id" component={Pagenew}></Route>
-                   <Route  path="/login" component={withAuthLogin(Login)}></Route>
-                    <Route   path="/admin" component={withAuth(Admin)}></Route>
-                    </Switch>
-                  
-                      
-         
-    </BrowserRouter>
+     
 
 
-    
-    );
-}
+
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/login" component={withAuthLogin(Login)}></Route>
+                    <Route exact path="/admin" component={withAuth(Admin)}></Route>
+                </Switch>
 
 
-export default App;
+
+            </BrowserRouter>
+
+            );
+        }
+        
+        
+        export default App;
 {/* loading == true ? < div className='loading' >
 
             <BallBeat color={'#123abc'}

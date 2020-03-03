@@ -1,75 +1,82 @@
 import React, { useEffect, useState } from 'react';
-import DropzoneS3Uploader from 'react-dropzone-s3-uploader'
-
+import close from '../assets/image/close.png'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 import axios from 'axios'
-
-export default function Chart(props) {
-
-
-
-  const uploadOptions = {
-    server: '/',
-    signingUrlQueryParams: { uploadType: '' },
+import Modal from 'react-modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
+const customStyles = {
+  content: {
+    height: '70%',
+    width: '70%',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    opacity: '80%',
+    background: 'linear-gradient(to right, #ffffff 29%, #ffffff 96%)',
+    marginTop: '5%'
   }
-  const s3Url = 'https://bbs-final.s3.amazonaws.com'
+};
+export default function StyleImage(props) {
+  const [showModal, setShowModal] = useState(false);
+  const [arrayImage, setArrayImage] = useState([]);
+  function openModal() {
+    setShowModal(true)
+
+  }
+
+  function closeModal() {
+    setShowModal(false)
+    setTimeout(() => {
+      setArrayImage([])
+    }, 500)
+
+  }
+
   useEffect(() => {
 
   }, [])
 
-  const handleFinishedUpload = info => {
-    console.log('File uploaded with filename', info.filename)
-    console.log('Access it on s3 at', info.fileUrl)
-  }
-  const postImage = () => {
 
+  const postImage = async (file) => {
+    let formData = new FormData();
+    formData.append('file', file);
+    axios.post(
+      '/Uploadfile',
+      formData,
+      {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }
+    )
+      .then(res => {
+        console.log(res.data);
+        setArrayImage(state => [...state, res.data])
+      }).catch(() => {
+      })
   }
   const MyUploader = () => {
-
-    // specify upload params and url for your files
-    const getUploadParams = ({ meta }) => {
-      //   console.log(meta)
-      return { url: '/Uploadfile' }
-    }
-
-    // called every time a file's `status` changes
     const handleChangeStatus = ({ meta, file }, status) => {
     }
-
-    // receives array of files that are done uploading when submit button is clicked
     const handleSubmit = async (files, allFiles) => {
-console.log(allFiles[0].file)
-
-      let formData = new FormData();
-      formData.append('file',allFiles[0].file );
-
-
-      axios.post(
-          '/Uploadfile',
-          formData,
-          {
-              headers: {
-                  "Content-type": "multipart/form-data",
-              },                    
-          }
-      )
-      .then(res => {
-          console.log(`Success` + res.data);
+      allFiles.map((item) => {
+        postImage(item.file)
       })
-      //  console.log(files.map(f => f.meta))
       allFiles.forEach(f => f.remove())
     }
 
     return (
       <Dropzone
-     //  getUploadParams={getUploadParams}
         multiple
         onChangeStatus={handleChangeStatus}
-
         onSubmit={handleSubmit}
         inputContent={"Hãy chọn file"}
-        submitButtonContent="Gửi"
+        submitButtonContent="Thêm ảnh"
         classNames={{ submitButton: 'btn btn-danger' }}
       //   accept="image/*,audio/*,video/*"
       />
@@ -80,9 +87,28 @@ console.log(allFiles[0].file)
   return (
 
     <div>
+      <button onClick={() => openModal('Thêm')} style={{ float: 'right' }} type="button" class="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Create New</button>
 
+      <Modal
+        closeTimeoutMS={500}
+        isOpen={showModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal">
+        <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
+        <h2> Thêm </h2>
+        <div class="card card-body">
+            <MyUploader />
+            {arrayImage.map((item) =>
+            <label>
+              {item}
+            </label>
+          )}
+          </div>
+       <button style={{marginTop:10}} className="btn btn-info">Thêm kiểu</button>
+      </Modal>
 
-      <MyUploader />
     </div>
-  );
+
+      );
 }

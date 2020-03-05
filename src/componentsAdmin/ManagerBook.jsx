@@ -1,86 +1,115 @@
 import React, { useRef, useState, useEffect } from 'react'
 import close from '../assets/image/close.png'
-import 'react-quill/dist/quill.snow.css';
-import ReactQuill, { Quill } from 'react-quill';
 import axios from 'axios'
 import Modal from 'react-modal';
-import qs from 'qs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
-import DeleteIcon from '@material-ui/icons/Delete';
-import FileBase64 from 'react-file-base64';
-import Swal from "sweetalert2";
+import callApi from '../controller/resapi'
+import { swal, swalErr } from '../controller/swal'
+import customStyles from '../controller/custom_modal'
 
-var toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block'],
-  [{ 'color': [] }, { 'background': [] }],
-  ['link', 'image'],
-  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-  [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-  [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-  [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
-  [{ 'direction': 'rtl' }],                         // text direction
-
-  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-  [{ 'font': [] }],
-  [{ 'align': [] }],
-
-
-  ['clean']                                         // remove formatting button
-];
-const customStyles = {
-  content: {
-    width: '70%',
-    height: '90%',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    opacity: '80%',
-    background: 'linear-gradient(to right, #ffffff 29%, #ffffff 96%)',
-    marginTop: '5%'
-  }
-};
 function ManagerBook(props) {
-  const [loading,setLoading]=useState(true);
+  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [list, setListNews] = useState([])
+  const [addressStore, setAddresStore] = useState('')
+
+  function  openModal() {
+    getStore();
+    setShowModal(true);
 
 
-  function swal() {
-    Swal.fire({
-      title: 'Thành công',
-      type: 'success',
-      icon: 'success'
-    });
-  }
-  function swalErr() {
-    Swal.fire({
-      title: 'Xóa Thành công',
-      type: 'success',
-      icon: 'error'
-    });
   }
 
-  useEffect(() => {
-    getNews()
-    props.setColor()
+  function closeModal() {
+    setShowModal(false)
+    setTimeout(() => {
+    }, 500)
+
+  }
+const getStore=async()=>{
+  const {data} = await axios('/getStore')
+  setListNews(data)
+}
+  useEffect(async() => {
+    props.setColor();
   }, [])
-  async function getNews() {
-    setLoading(true)
-    const result = await axios('/getNews')
-    setListNews(result.data)
-    setLoading(false);
+  const GetStore=(list)=> {
+    return(
+      <div className="">
+        {list.data.map((item)=>
+        <div>{item.address}</div>
+          )}
+      </div>
+    )
   }
 
 
   return (
     <div style={{ width: '100%' }}>
-      <h1>Màn tạo đặt lich</h1>
+      <Modal
+          closeTimeoutMS={500}
+          isOpen={showModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal">
+          <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
+          <h2> Thêm kiểu tóc</h2>
+          <div class="card card-body">
+            <GetStore data={list}/>
+          </div>
+        </Modal>
+      <div className="row">
+
+        <div className="col-lg-6">
+          <div class="form-group">
+            <label for="content">Thêm chi nhánh</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Địa chỉ chi nhánh"
+              value={addressStore}
+              onChange={(e) => setAddresStore(e.target.value)}
+
+            />
+
+          </div>
+          <button style={{ float: 'right', marginLeft: 15 }} onClick={()=>openModal()} className="btn btn-info">Xem</button>
+          <button style={{ float: 'right' }}
+            onClick={() => callApi('post', '/postStore', { address: addressStore }, { swal: swal, swalErr: swalErr }).then(() => setAddresStore(''))}
+            className="btn btn-info">Thêm</button>
+        </div>
+        <div className="col-lg-6">
+          <div class="form-group">
+            <label for="content">Thêm thợ</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Tên thợ"
+
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Số điện thoại"
+
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Địa chỉ"
+
+            />
+          </div>
+          <button style={{ float: 'right', marginLeft: 15 }} className="btn btn-info">Xem</button>
+          <button style={{ float: 'right' }} className="btn btn-info">Thêm</button>
+
+        </div>
+      </div>
     </div>
   )
 }

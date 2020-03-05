@@ -91,9 +91,9 @@ export default function StyleImage(props) {
         onChangeStatus={handleChangeStatus}
         onSubmit={handleSubmit}
         inputContent={"Hãy chọn file"}
-        submitButtonContent="Thêm ảnh"
+        submitButtonContent="Thêm ảnh vào danh sách"
         classNames={{ submitButton: 'btn btn-danger' }}
-      //   accept="image/*,audio/*,video/*"
+        accept="image/*"
       />
     )
   }

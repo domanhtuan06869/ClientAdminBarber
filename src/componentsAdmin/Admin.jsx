@@ -288,7 +288,6 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         <List><MainListItems color={{colorHome:colorHome,colorContact:colorContact,
           colorCustomer:colorCustomer,colorCustomer,colorNews:colorNews,colorSlider:colorSlider}} > </MainListItems></List>
         <Divider />
-        <List><SecondaryListItems color={{colorTeam:colorTeam,colorInfo:colorInfo}}></SecondaryListItems></List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

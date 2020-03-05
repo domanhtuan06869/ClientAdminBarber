@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import '../src/assets/css/laptopdesktop.css';
-import Index from './main/index'
 import '../src/assets/css/stylemobile.css';
 import axios from 'axios';
-import { BallBeat } from 'react-pure-loaders';
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import Admin from '../src/componentsAdmin/Admin'

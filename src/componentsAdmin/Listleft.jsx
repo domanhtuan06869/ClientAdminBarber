@@ -43,7 +43,7 @@ export const  MainListItems =({color})=> (
     <ListItemIcon>
       <LayersIcon htmlColor={color.colorSlider}  lightingColor={color.colorSlider} />
     </ListItemIcon>
-    <ListItemText primary="Quản lí Slider" />
+    <ListItemText primary="Quản lí khách đặt" />
   </ListItem>
   </NavLink>
 

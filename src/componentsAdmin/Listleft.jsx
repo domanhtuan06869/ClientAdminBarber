@@ -23,7 +23,7 @@ export const  MainListItems =({color})=> (
     <ListItemIcon color={color.colorHome} >
      <DashboardIcon  htmlColor={color.colorHome}  lightingColor={color.colorHome}  />
     </ListItemIcon>
-    <ListItemText primary="Dashboard" />
+    <ListItemText primary="Quản lí style" />
   </ListItem>
     </NavLink>
 
@@ -34,7 +34,7 @@ export const  MainListItems =({color})=> (
     <ListItemIcon>
       <AssignmentIcon   htmlColor={color.colorNews}  lightingColor={color.colorNews} />
     </ListItemIcon>
-    <ListItemText primary="Quản lí tin tức" />
+    <ListItemText primary="Quản lí tạo đạt lịch" />
   </ListItem>
   </NavLink>
 

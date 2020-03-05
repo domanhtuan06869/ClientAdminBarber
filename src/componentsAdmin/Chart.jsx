@@ -6,14 +6,15 @@ import axios from 'axios'
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
+import DeleteIcon from '@material-ui/icons/Delete';
 const customStyles = {
   content: {
-    height: '70%',
-    width: '70%',
-    top: '50%',
+    height: 'auto',
+    width: '60%',
+    top: '40%',
     left: '50%',
     right: 'auto',
-    bottom: 'auto',
+    bottom: '5%',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     opacity: '80%',
@@ -24,6 +25,19 @@ const customStyles = {
 export default function StyleImage(props) {
   const [showModal, setShowModal] = useState(false);
   const [arrayImage, setArrayImage] = useState([]);
+  const [listStyle, setListStyle] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [checkpost, setCheckpost] = useState('')
+
+
+
+  const getStyle = async () => {
+    setLoading(true)
+    const { data } = await axios('/getStyle');
+    setLoading(false)
+    setListStyle(data)
+  }
+
   function openModal() {
     setShowModal(true)
 
@@ -38,7 +52,8 @@ export default function StyleImage(props) {
   }
 
   useEffect(() => {
-
+    props.setColor()
+    getStyle()
   }, [])
 
 
@@ -55,8 +70,8 @@ export default function StyleImage(props) {
       }
     )
       .then(res => {
-        console.log(res.data);
-        setArrayImage(state => [...state, res.data])
+        console.log(res.data[0]);
+        setArrayImage(state => [...state, res.data[0]])
       }).catch(() => {
       })
   }
@@ -83,48 +98,87 @@ export default function StyleImage(props) {
     )
   }
 
-  const postArrayImage=async()=>{
+  const postArrayImage = async () => {
+    if (arrayImage.length < 4) {
+      setCheckpost('Chọn nhiều hơn 4 ảnh');
+      return;
+    }
     await axios({
       method: 'post',
       url: '/postStyle',
       data: {
-        arrayStyle:arrayImage
+        arrayStyle: arrayImage
       },
 
       headers: {
         'content-type': 'application/json'
       }
     }).then((res) => {
-
+      setArrayImage([])
+      setCheckpost('')
+      setShowModal(false)
+      getStyle()
     })
   }
-  return (
+  if (loading) {
+    return <h2 style={{ margin: '0 auto', textAlign: 'center' }}>Loading...</h2>;
+  } else {
+    return (
 
-    <div>
-      <button onClick={() => openModal('Thêm')} style={{ float: 'right' }} type="button" class="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Create New</button>
+      <div>
 
-      <Modal
-        closeTimeoutMS={500}
-        isOpen={showModal}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal">
-        <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
-        <h2> Thêm </h2>
-        <div class="card card-body">
+        <button onClick={() => openModal('Thêm')} style={{}} type="button" className="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Create New</button>
+
+
+        <Modal
+          closeTimeoutMS={500}
+          isOpen={showModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal">
+          <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
+          <h2> Thêm kiểu tóc</h2>
+          <div class="card card-body">
             <MyUploader />
             {arrayImage.map((item) =>
-            <label>
-              {item}
-            </label>
-          )}
+              <label key={item}>
+                {item}
+              </label>
+            )}
           </div>
-       <button style={{marginTop:10}} onClick={postArrayImage} className="btn btn-info">Thêm kiểu</button>
-      </Modal>
+          <button style={{ marginTop: 20, marginLeft: '5%' }} onClick={postArrayImage} className="btn btn-info">Thêm kiểu</button>
+          <label>{checkpost}</label>
+        </Modal>
+        <div style={{ marginTop: 40 }} className="row">
+          {
+            listStyle.map((item) =>
+              <div key={item._id} style={{ marginTop: 10 }} className="col-12">
+                <DeleteIcon onClick={() => alert('f')} />
+                <div className="card">
+                  <div className="card-body">
+                    <div className="row">
 
-    </div>
+                      {item.img_style.map((itemimage) => (
+                        <div key={itemimage} className="col-lg-3">
+                          <img className="card-img responsive" style={{ height: 200 }} src={itemimage} alt="Card image cap" />
+                        </div>
+                      ))}
 
-      );
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          }
 
-   
+        </div>
+
+
+      </div>
+
+    );
+
+  }
+
+
 }

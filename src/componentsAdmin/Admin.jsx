@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import EditAdmin from '../componentsAdmin/EditAdmin'
 import Contact from '../componentsAdmin/Contact'
 import Customer from '../componentsAdmin/Customer'
-import NewsAdmin from '../componentsAdmin/NewsAdmin'
+import NewsAdmin from './ManagerBook'
 import Chart from '../componentsAdmin/Chart'
 import Slider from '../componentsAdmin/SliderManager'
 import UpdateInfomation from '../componentsAdmin/UpdateInfomation'
@@ -238,7 +238,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         <Typography variant="body2" color="textSecondary" align="center">
           {'Copyright © '}
           <Link color="inherit" href="#">
-           KYC
+           Barber
           </Link>{' '}
           {new Date().getFullYear()}
           {'.'}
@@ -279,7 +279,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         open={open}
       >
         <div style={{backgroundColor:'#101E59',height:'8.8%'}} className={classes.toolbarIcon}>
-          <h1  style={{marginTop:'4%',color:'white'}}>KYC</h1>
+          <h1  style={{marginTop:'4%',color:'white'}}>Barber</h1>
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon style={{color:'white'}} />
           </IconButton>

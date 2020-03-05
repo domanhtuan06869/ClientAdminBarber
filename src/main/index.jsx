@@ -4,7 +4,6 @@ import Header from '../components/Header'
 import Body from '../components/Body'
 import News from '../components/News'
 import Testimonials from '../components/Testimonials'
-import Boxfrom from '../components/Boxform'
 import Footer from '../components/Footer'
 import axios from 'axios'
 
@@ -108,33 +107,6 @@ function Index(props) {
 
   return (
     <div className='Main'>
-      <Desktop>
-        <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
-        <Body  refs={project} listSlider={props.listSlider}></Body>
-        <News listnews={props.listnews} refs={box}></News>
-        <Testimonials></Testimonials>
-        <Boxfrom ></Boxfrom>
-        <Footer refs={messagesEndRef}></Footer>
-      </Desktop>
-
-      <Tablet>
-      <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
-        <Body  refs={project} listSlider={props.listSlider}></Body>
-        <News listnews={props.listnews}  refs={box}></News>
-        <Testimonials></Testimonials>
-        <Boxfrom ></Boxfrom>
-        <Footer refs={messagesEndRef}></Footer>
-
-      </Tablet>
-
-      <Mobile>
-      <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
-        <Body  refs={project} listSlider={props.listSlider}></Body>
-        <News listnews={props.listnews}  refs={box}></News>
-        <Testimonials ></Testimonials>
-        <Boxfrom ></Boxfrom>
-        <Footer refs={messagesEndRef}></Footer>
-      </Mobile>
 
 
     </div>

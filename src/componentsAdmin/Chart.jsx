@@ -98,6 +98,21 @@ export default function StyleImage(props) {
     )
   }
 
+const deleteStyle=async(id)=>{
+  await axios({
+    method: 'delete',
+    url: '/deleteStyle',
+    data: {id:id},
+    headers: {
+        'content-type': 'application/json'
+    }
+}).then((res) => {
+    alert('xóa tc')
+    getStyle()
+})
+
+}
+
   const postArrayImage = async () => {
     if (arrayImage.length < 4) {
       setCheckpost('Chọn nhiều hơn 4 ảnh');
@@ -153,7 +168,7 @@ export default function StyleImage(props) {
           {
             listStyle.map((item) =>
               <div key={item._id} style={{ marginTop: 10 }} className="col-12">
-                <DeleteIcon onClick={() => alert('f')} />
+                <DeleteIcon onClick={() => deleteStyle(item._id)} />
                 <div className="card">
                   <div className="card-body">
                     <div className="row">
@@ -172,7 +187,6 @@ export default function StyleImage(props) {
           }
 
         </div>
-
 
       </div>
 

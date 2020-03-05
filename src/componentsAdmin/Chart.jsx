@@ -83,7 +83,21 @@ export default function StyleImage(props) {
     )
   }
 
+  const postArrayImage=async()=>{
+    await axios({
+      method: 'post',
+      url: '/postStyle',
+      data: {
+        arrayStyle:arrayImage
+      },
 
+      headers: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+
+    })
+  }
   return (
 
     <div>
@@ -105,10 +119,12 @@ export default function StyleImage(props) {
             </label>
           )}
           </div>
-       <button style={{marginTop:10}} className="btn btn-info">Thêm kiểu</button>
+       <button style={{marginTop:10}} onClick={postArrayImage} className="btn btn-info">Thêm kiểu</button>
       </Modal>
 
     </div>
 
       );
+
+   
 }

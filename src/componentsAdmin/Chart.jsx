@@ -7,21 +7,9 @@ import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
 import DeleteIcon from '@material-ui/icons/Delete';
-const customStyles = {
-  content: {
-    height: 'auto',
-    width: '60%',
-    top: '40%',
-    left: '50%',
-    right: 'auto',
-    bottom: '5%',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    opacity: '80%',
-    background: 'linear-gradient(to right, #ffffff 29%, #ffffff 96%)',
-    marginTop: '5%'
-  }
-};
+import customStyles from '../controller/custom_modal'
+import callApi from '../controller/resapi'
+
 export default function StyleImage(props) {
   const [showModal, setShowModal] = useState(false);
   const [arrayImage, setArrayImage] = useState([]);
@@ -98,37 +86,13 @@ export default function StyleImage(props) {
     )
   }
 
-const deleteStyle=async(id)=>{
-  await axios({
-    method: 'delete',
-    url: '/deleteStyle',
-    data: {id:id},
-    headers: {
-        'content-type': 'application/json'
-    }
-}).then((res) => {
-    alert('xóa tc')
-    getStyle()
-})
-
-}
 
   const postArrayImage = async () => {
     if (arrayImage.length < 4) {
       setCheckpost('Chọn nhiều hơn 4 ảnh');
       return;
     }
-    await axios({
-      method: 'post',
-      url: '/postStyle',
-      data: {
-        arrayStyle: arrayImage
-      },
-
-      headers: {
-        'content-type': 'application/json'
-      }
-    }).then((res) => {
+    callApi('post', '/postStyle', { arrayStyle: arrayImage }).then(() => {
       setArrayImage([])
       setCheckpost('')
       setShowModal(false)
@@ -168,7 +132,7 @@ const deleteStyle=async(id)=>{
           {
             listStyle.map((item) =>
               <div key={item._id} style={{ marginTop: 10 }} className="col-12">
-                <DeleteIcon onClick={() => deleteStyle(item._id)} />
+                <DeleteIcon onClick={() => callApi('delete', '/deleteStyle', { id: item._id }).then(() => getStyle())} />
                 <div className="card">
                   <div className="card-body">
                     <div className="row">

@@ -34,7 +34,7 @@ export const  MainListItems =({color})=> (
     <ListItemIcon>
       <AssignmentIcon   htmlColor={color.colorNews}  lightingColor={color.colorNews} />
     </ListItemIcon>
-    <ListItemText primary="Quản lí tạo đạt lịch" />
+    <ListItemText primary="Quản lí tạo đặt lịch" />
   </ListItem>
   </NavLink>
 

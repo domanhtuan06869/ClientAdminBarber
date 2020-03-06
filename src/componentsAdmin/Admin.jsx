@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import EditAdmin from '../componentsAdmin/EditAdmin'
 import Contact from '../componentsAdmin/Contact'
 import Customer from '../componentsAdmin/Customer'
-import NewsAdmin from './ManagerBook'
+import NewsAdmin from './ManagerStoreMenber'
 import Chart from '../componentsAdmin/Chart'
 import Slider from '../componentsAdmin/SliderManager'
 import UpdateInfomation from '../componentsAdmin/UpdateInfomation'

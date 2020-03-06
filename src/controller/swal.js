@@ -1,14 +1,14 @@
 import Swal from "sweetalert2";
-export function swal() {
+export function swal(text) {
     Swal.fire({
       title: 'Thành công',
       type: 'success',
       icon: 'success'
     });
   }
- export function swalErr() {
+ export function swalErr(text) {
     Swal.fire({
-      title: 'Xóa Thành công',
+      title: 'Thất bại',
       type: 'success',
       icon: 'error'
     });

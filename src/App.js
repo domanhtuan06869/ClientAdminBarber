@@ -4,10 +4,10 @@ import '../src/assets/css/stylemobile.css';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
-import Admin from '../src/componentsAdmin/Admin'
-import Login from '../src/componentsAdmin/Login'
-import withAuth from '../src/componentsAdmin/withAuth'
-import withAuthLogin from '../src/componentsAdmin/withAuthLogin'
+import Admin from '../src/Admin/Admin'
+import Login from '../src/Admin/Login'
+import withAuth from '../src/Admin/withAuth'
+import withAuthLogin from '../src/Admin/withAuthLogin'
 
 function App() {
     const listnews = useSelector(state => state.reducerNews.data);

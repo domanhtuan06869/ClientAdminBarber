@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.css';
 import thunk from "redux-thunk";
 import reducer from '../src/combinereducers/combineReducers'
-import registerServiceWorker,{unregister} from '../src/componentsAdmin/registerServiceWorker';
+import registerServiceWorker,{unregister} from '../src/Admin/registerServiceWorker';
 const store = createStore(reducer, applyMiddleware(thunk));
 ReactDOM.render(  <Provider store={store}>
     <App />

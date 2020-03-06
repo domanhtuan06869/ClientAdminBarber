@@ -2,14 +2,14 @@
 import React, { useRef, useEffect ,useState} from 'react'
 import { BrowserRouter,HashRouter,NavLink, Route, Link,Switch } from "react-router-dom";
 import clsx from 'clsx';
-import EditAdmin from '../componentsAdmin/EditAdmin'
-import Contact from '../componentsAdmin/Contact'
-import Customer from '../componentsAdmin/Customer'
+import EditAdmin from './EditAdmin'
+import Contact from './Contact'
+import Customer from './Customer'
 import NewsAdmin from './ManagerStoreMenber'
-import Chart from '../componentsAdmin/Chart'
-import Slider from '../componentsAdmin/SliderManager'
-import UpdateInfomation from '../componentsAdmin/UpdateInfomation'
-import UpdateTeams from '../componentsAdmin/UpDateCb'
+import Chart from './Chart'
+import Slider from './SliderManager'
+import UpdateInfomation from './UpdateInfomation'
+import UpdateTeams from './UpDateCb'
 
 
 

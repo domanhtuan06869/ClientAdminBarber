@@ -1,11 +1,11 @@
 import { combineReducers} from "redux";
 import reducerTeam from '../store/reducerTeam'
-import reducerNews from '../store/reducerNews'
-import reducerSlider from '../store/reducerSlider'
+import reducerStyle from '../store/reducerNews'
+import reducerStore from '../store/reducerStore';
 const combine=combineReducers({
     reducerTeam:reducerTeam,
-    reducerNews:reducerNews,
-    reducerSlider:reducerSlider
+    reducerStyle:reducerStyle,
+    reducerStore:reducerStore
 
 
 

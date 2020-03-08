@@ -38,7 +38,7 @@ export const  MainListItems =({color})=> (
   </ListItem>
   </NavLink>
 
-  <NavLink style={{color:color.colorSlider}} to='/slider'>
+  <NavLink style={{color:color.colorContact}} to='/managercalendarcut'>
   <ListItem button>
     <ListItemIcon>
       <LayersIcon htmlColor={color.colorSlider}  lightingColor={color.colorSlider} />

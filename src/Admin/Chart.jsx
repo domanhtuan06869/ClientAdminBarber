@@ -9,21 +9,27 @@ import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
 import DeleteIcon from '@material-ui/icons/Delete';
 import customStyles from '../controller/custom_modal'
 import callApi from '../controller/resapi'
+import { useDispatch, useSelector } from "react-redux";
+import { swal, swalErr } from '../controller/swal'
 
 export default function StyleImage(props) {
   const [showModal, setShowModal] = useState(false);
   const [arrayImage, setArrayImage] = useState([]);
-  const [listStyle, setListStyle] = useState([]);
   const [loading, setLoading] = useState(true);
   const [checkpost, setCheckpost] = useState('')
 
-
+  const listStyle = useSelector(state => state.reducerStyle.data);
+  const dispatch = useDispatch();
 
   const getStyle = async () => {
     setLoading(true)
     const { data } = await axios('/getStyle');
+    dispatch({
+      type: "FETCH_STYLE",
+      data: data
+    })
     setLoading(false)
-    setListStyle(data)
+
   }
 
   function openModal() {
@@ -58,7 +64,6 @@ export default function StyleImage(props) {
       }
     )
       .then(res => {
-        console.log(res.data[0]);
         setArrayImage(state => [...state, res.data[0]])
       }).catch(() => {
       })
@@ -92,11 +97,14 @@ export default function StyleImage(props) {
       setCheckpost('Chọn nhiều hơn 4 ảnh');
       return;
     }
-    callApi('post', '/postStyle', { arrayStyle: arrayImage }).then(() => {
+
+    callApi('post', '/postStyle', { arrayStyle: arrayImage }).then((res) => {
+      getStyle()
       setArrayImage([])
       setCheckpost('')
       setShowModal(false)
-      getStyle()
+      swal()
+
     })
   }
   if (loading) {
@@ -132,11 +140,18 @@ export default function StyleImage(props) {
           {
             listStyle.map((item) =>
               <div key={item._id} style={{ marginTop: 10 }} className="col-12">
-                <DeleteIcon onClick={() => callApi('delete', '/deleteStyle', { id: item._id }).then(() => getStyle())} />
+                <DeleteIcon onClick={() => callApi('delete', '/deleteStyle', { id: item._id }).then(() => {
+                  dispatch({
+                    type: "DELETE_STYLE",
+                    data: item._id
+                  })
+                  swal()
+                }).catch(() => swalErr())
+
+                } />
                 <div className="card">
                   <div className="card-body">
                     <div className="row">
-
                       {item.img_style.map((itemimage) => (
                         <div key={itemimage} className="col-lg-3">
                           <img className="card-img responsive" style={{ height: 200 }} src={itemimage} alt="Card image cap" />

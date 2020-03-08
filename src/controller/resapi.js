@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { swal, swalErr } from '../controller/swal'
 export default async(method,url,data)=>{
   return  await axios({
         method: method,
@@ -8,9 +7,5 @@ export default async(method,url,data)=>{
         headers: {
             'content-type': 'application/json'
         }
-    }).then(()=>{
-        swal();
-    }).catch(()=>{
-        swalErr()
     })
 }

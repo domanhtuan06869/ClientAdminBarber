@@ -2,14 +2,12 @@
 import React, { useRef, useEffect ,useState} from 'react'
 import { BrowserRouter,HashRouter,NavLink, Route, Link,Switch } from "react-router-dom";
 import clsx from 'clsx';
-import EditAdmin from './EditAdmin'
-import Contact from './Contact'
+import ManagerCalender from './ManagerCalender'
 import Customer from './Customer'
 import NewsAdmin from './ManagerStoreMenber'
 import Chart from './Chart'
 import Slider from './SliderManager'
 import UpdateInfomation from './UpdateInfomation'
-import UpdateTeams from './UpDateCb'
 
 
 
@@ -174,7 +172,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
 
     
       }
-     else if(props.location.hash==='#/contact'){
+     else if(props.location.hash==='#/managercalendarcut'){
         setColorContact('blue')
         setColorHome('#3C3C3C')
         setColorNews('#3C3C3C')
@@ -295,13 +293,11 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         <div className="content">
           <Switch>
                     <Route exact path='/' render={(props) => <Chart setColor={setColorRouter} />}/>
-                    <Route path='/edit' render={(props) => <EditAdmin setColor={setColorRouter} />}/>
                       <Route path='/newsAdmin' render={(props) => <NewsAdmin setColor={setColorRouter} />}/>
-                      <Route path='/contact' render={(props) => <Contact setColor={setColorRouter} />}/>
+                      <Route path='/managercalendarcut' render={(props) => <ManagerCalender setColor={setColorRouter} />}/>
                       <Route path='/customer' render={(props) => <Customer setColor={setColorRouter} />}/>
                       <Route path='/slider' render={(props) => <Slider setColor={setColorRouter} />}/>
                       <Route path='/updateinfomation' render={(props) => <UpdateInfomation setColor={setColorRouter} />}/>
-                      <Route path='/updateteam' render={(props) => <UpdateTeams setColor={setColorRouter} />}/>
 
           </Switch>
             

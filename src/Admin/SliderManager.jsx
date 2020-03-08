@@ -6,28 +6,13 @@ import axios from 'axios'
 import Modal from 'react-modal';
 import Add from '@material-ui/icons/Add';
 import qs from 'qs'
-import DataTable from 'react-data-table-component';
 import IconButton from '@material-ui/core/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
 import DeleteIcon from '@material-ui/icons/Delete';
-import FileBase64 from 'react-file-base64';
 import Swal from "sweetalert2";
 
-const customStyles = {
-    content: {
-  
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        opacity: '80%',
-        background: 'linear-gradient(to right, #ffffff 29%, #ffffff 96%)',
-        marginTop: '5%'
-    }
-};
+
 function SliderManager(props) {
     /*Contact */
     const [listNews, setListNews] = useState([])
@@ -194,108 +179,7 @@ function SliderManager(props) {
     }
 
     return (
-        <div>
-            <Modal
-                closeTimeoutMS={500}
-                isOpen={showModal}
-
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal" >
-
-                <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
-                <h2>{action === 'Thêm' ? 'Thêm Slider' : 'Sửa Slider '}</h2>
-                <div class="card card-body" style={{ margin: 10 }}>
-                    <div class="form-group">
-                        <label for="Stt">Stt</label>
-                        <input
-                            type="text"
-
-                            class="form-control"
-                            placeholder="Stt"
-                            value={stt}
-                            onChange={(text) => setStt(text.target.value)}
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label for="Title">Title</label>
-                        <input
-                            type="text"
-
-                            class="form-control"
-                            placeholder="title"
-                            value={title}
-                            onChange={(text) => setTitle(text.target.value)}
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label for="content">Content</label>
-                        <input
-                            type="text"
-
-                            class="form-control"
-                            placeholder="content"
-                            value={content}
-                            onChange={(text) => setContent(text.target.value)}
-
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label for="image">Ảnh</label>
-                        <div>
-                            {checked === false ? <FileBase64
-                                multiple={false}
-                                onDone={(file) => setUrl(file.base64)} /> : <input
-                                    type="text"
-
-                                    class="form-control"
-                                    placeholder="image"
-                                    value={url}
-                                    onChange={(text) => setUrl(text.target.value)}
-
-                                />}    {url === '' ? null : <img style={{ width: 100, height: 50, marginTop: true ? 3 : 0 }} src={url}></img>}
-                            <label>Chọn ảnh</label>   <input type='radio' checked={checked === false ? true : false} onClick={() => setChecked(false)} name="cbSlider" />
-                            <label>Nhập link</label>     <input type='radio' onClick={() => setChecked(true)} name="cbSlider" />
-                        </div>
-
-                    </div>
-
-
-
-                    <div style={{ marginTop: 30 }} class="form-group">
-                        <button onClick={() => {
-                            action === 'Thêm' ?
-                                insertupdate({
-                                    stt: stt,
-                                    title: title,
-                                    content: content,
-                                    urlimage: url
-                                }, '/postSlide', 'post').then(() => getSlider()) : insertupdate({
-                                    id: id,
-                                    stt: stt,
-                                    title: title,
-                                    content: content,
-                                    urlimage: url
-                                }, '/updateSlider', 'put').then(() => getSlider())
-                        }} className="btn btn-info">{action}</button>
-                    </div>
-                </div>
-
-
-            </Modal>
-
-            <div >
-                <button onClick={() => openModal('Thêm')} style={{ float: 'right' }} type="button" class="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Create New</button>
-
-                <h2>Quản lí Slider</h2>
-
-                <Posts posts={currentPosts} loading={loading} openModal={openModal} deleteItem={deleteItem} />
-                <Pagination
-                    postsPerPage={postsPerPage}
-                    totalPosts={listNews.length}
-                    paginate={paginate}
-                />
-            </div>
+       <div>
 
         </div>
     )

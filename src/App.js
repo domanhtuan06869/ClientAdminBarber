@@ -10,8 +10,6 @@ import withAuth from '../src/Admin/withAuth'
 import withAuthLogin from '../src/Admin/withAuthLogin'
 
 function App() {
-    const listnews = useSelector(state => state.reducerNews.data);
-    const listSlider = useSelector(state => state.reducerSlider.data)
 
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true)

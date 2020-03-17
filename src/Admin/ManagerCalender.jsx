@@ -98,10 +98,10 @@ function Contact(props) {
               <BallBeat color={'#123abc'}
                 loading={loading} />
             </div > : 
-            <div>{
+            <div ref={componentRef}>{
               rescalendar.map((item,index)=>
-              <div className="row" key={item._id} style={{backgroundColor:index %2==0?'#ccc':null}}>
-                <div style={{backgroundColor:item.ca1===true?'yellow':'green'}}>1h30</div>
+              <div  className="row" key={item._id} style={{backgroundColor:index %2==0?'#ccc':null}}>
+                <div className="col-lg-3" style={{backgroundColor:item.ca1===true?'yellow':'green'}}>1h30 hahahahahahahahaha</div>
 
               </div>
               )

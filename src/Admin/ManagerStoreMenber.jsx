@@ -11,7 +11,8 @@ import callApi from '../controller/resapi'
 import customStyles from '../controller/custom_modal'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { swal, swalErr } from '../controller/swal'
-
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 function ManagerStoreMenber(props) {
   const [loading, setLoading] = useState(true);
@@ -259,19 +260,11 @@ function ManagerStoreMenber(props) {
             </div>
 
             <div className="col-lg-4">
-              <div className="row">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Chọn ngày (yyyy-mm-dd)"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-
-                  />
-                </div>
-
-              </div>
+            <Calendar
+              onChange={()=>{}}
+              value={}
+            ></Calendar>
+     
               <button onClick={postBookMenberCut} type="button" class="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Hoàn thành tạo lịch</button>
 
             </div>

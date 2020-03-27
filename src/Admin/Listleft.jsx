@@ -57,15 +57,6 @@ export const  MainListItems =({color})=> (
   </ListItem>
   </NavLink>
 
-  <NavLink style={{color:color.colorContact}} to='/contact'>
-  <ListItem button>
-    <ListItemIcon>
-      <PeopleIcon htmlColor={color.colorContact}  lightingColor={color.colorContact}  />
-    </ListItemIcon>
-    <ListItemText primary="Liên hệ" />
-  </ListItem>
-  </NavLink>
-
 
 </div>
 );

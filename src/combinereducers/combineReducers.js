@@ -1,15 +1,15 @@
-import { combineReducers} from "redux";
-import reducerTeam from '../store/reducerTeam'
+import { combineReducers } from "redux";
+import reducerCalendar from '../store/reducer_calendar_menber'
 import reducerStyle from '../store/reducerNews'
 import reducerStore from '../store/reducerStore';
-const combine=combineReducers({
-    reducerTeam:reducerTeam,
-    reducerStyle:reducerStyle,
-    reducerStore:reducerStore
+const combine = combineReducers({
+  reducerCalendar: reducerCalendar,
+  reducerStyle: reducerStyle,
+  reducerStore: reducerStore
 
 
 
 })
-  
 
-  export default combine;
+
+export default combine;

@@ -8,6 +8,7 @@ import NewsAdmin from './ManagerStoreMenber'
 import Chart from './Chart'
 import Slider from './SliderManager'
 import UpdateInfomation from './UpdateInfomation'
+import Oders from './Oders'
 
 
 
@@ -119,7 +120,7 @@ const[colorContact,setColorContact]=useState('#3C3C3C')
 const [colorNews,setColorNews]=useState('#3C3C3C')
 const [colorCustomer,setColorCustomer]=useState('#3C3C3C')
 const [colorSlider,setColorSilder]=useState('#3C3C3C')
-const [colorTeam,setColorTeam]=useState('#3C3C3C')
+const [colorOder,setColorOder]=useState('#3C3C3C')
 const [colorInfo,setColorInfo]=useState('#3C3C3C')
 
 
@@ -168,7 +169,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         setColorNews('#3C3C3C')
         setColorCustomer('#3C3C3C')
         setColorSilder('#3C3C3C')
-        setColorTeam('#3C3C3C')
+        setColorOder('#3C3C3C')
 
     
       }
@@ -178,7 +179,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         setColorNews('#3C3C3C')
         setColorCustomer('#3C3C3C')
         setColorSilder('#3C3C3C')
-        setColorTeam('#3C3C3C')
+        setColorOder('#3C3C3C')
         setColorInfo('#3C3C3C')
     
       } else if(props.location.hash==='#/newsAdmin'){
@@ -187,7 +188,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         setColorNews('blue')
         setColorCustomer('#3C3C3C')
         setColorSilder('#3C3C3C')
-        setColorTeam('#3C3C3C')
+        setColorOder('#3C3C3C')
         setColorInfo('#3C3C3C')
 
         
@@ -197,7 +198,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         setColorNews('#3C3C3C')
         setColorCustomer('blue')
         setColorSilder('#3C3C3C')
-        setColorTeam('#3C3C3C')
+        setColorOder('#3C3C3C')
         setColorInfo('#3C3C3C')
 
       }
@@ -207,17 +208,17 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         setColorNews('#3C3C3C')
         setColorCustomer('#3C3C3C')
         setColorSilder('blue')
-        setColorTeam('#3C3C3C')
+        setColorOder('#3C3C3C')
         setColorInfo('#3C3C3C')
 
       }
-      else if(props.location.hash==='#/updateteam'){
+      else if(props.location.hash==='#/oders'){
         setColorContact('#3C3C3C')
         setColorHome('#3C3C3C')
         setColorNews('#3C3C3C')
         setColorCustomer('#3C3C3C')
         setColorSilder('#3C3C3C')
-        setColorTeam('blue')
+        setColorOder('blue')
         setColorInfo('#3C3C3C')
       }
       else if(props.location.hash==='#/updateinfomation'){
@@ -226,7 +227,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         setColorNews('#3C3C3C')
         setColorCustomer('#3C3C3C')
         setColorSilder('#3C3C3C')
-        setColorTeam('#3C3C3C')
+        setColorOder('#3C3C3C')
         setColorInfo('blue')
       }
     }
@@ -284,7 +285,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         </div>
         <Divider />
         <List><MainListItems color={{colorHome:colorHome,colorContact:colorContact,
-          colorCustomer:colorCustomer,colorCustomer,colorNews:colorNews,colorSlider:colorSlider}} > </MainListItems></List>
+          colorCustomer:colorCustomer,colorNews:colorNews,colorSlider:colorSlider,colorOder:colorOder}} > </MainListItems></List>
         <Divider />
       </Drawer>
       <main className={classes.content}>
@@ -296,6 +297,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
                       <Route path='/newsAdmin' render={(props) => <NewsAdmin setColor={setColorRouter} />}/>
                       <Route path='/managercalendarcut' render={(props) => <ManagerCalender setColor={setColorRouter} />}/>
                       <Route path='/customer' render={(props) => <Customer setColor={setColorRouter} />}/>
+                      <Route path='/oders' render={(props) => <Oders setColor={setColorRouter} />}/>
                       <Route path='/slider' render={(props) => <Slider setColor={setColorRouter} />}/>
                       <Route path='/updateinfomation' render={(props) => <UpdateInfomation setColor={setColorRouter} />}/>
 

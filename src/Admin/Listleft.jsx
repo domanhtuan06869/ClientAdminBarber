@@ -53,11 +53,18 @@ export const  MainListItems =({color})=> (
     <ListItemIcon>
       <BarChartIcon htmlColor={color.colorCustomer}  lightingColor={color.colorCustomer}  />
     </ListItemIcon>
-    <ListItemText primary="Khách hàng" />
+    <ListItemText primary="Sẩn phẩm" />
   </ListItem>
   </NavLink>
 
-
+  <NavLink style={{color:color.colorOder}} to='/oders'>
+  <ListItem button>
+    <ListItemIcon>
+      <BarChartIcon htmlColor={color.colorOder}  lightingColor={color.colorOder}  />
+    </ListItemIcon>
+    <ListItemText primary="Sản phẩm khách đặt" />
+  </ListItem>
+  </NavLink>
 </div>
 );
 

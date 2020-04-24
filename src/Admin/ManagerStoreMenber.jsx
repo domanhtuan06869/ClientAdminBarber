@@ -18,9 +18,10 @@ function ManagerStoreMenber(props) {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [listMenber, setListMenber] = useState([]);
-  const [province, setProvince] = useState('');
-  const [district, setDistrict] = useState('');
-  const [addressStore, setAddresStore] = useState('');
+  const [cityLocation, setCityLocation] = useState('');
+  const [districtLocation, setDistrictLocation] = useState('');
+  const [districtDetailLocation,setDistrictDetailLocation]=useState('');
+  const [addressLocation, setAddressLocation] = useState('');
   const [listStoreMenber, setListStoreMenber] = useState('');
   const [nameMenber, setNameMenber] = useState('');
   const [addressMenber, setAddressMenber] = useState('');
@@ -150,8 +151,8 @@ function ManagerStoreMenber(props) {
                 type="text"
                 className="form-control"
                 placeholder="Tỉnh Thành Phố"
-                value={province}
-                onChange={(e) => setProvince(e.target.value)}
+                value={cityLocation}
+                onChange={(e) => setCityLocation(e.target.value)}
               />
 
             </div>
@@ -160,8 +161,8 @@ function ManagerStoreMenber(props) {
                 type="text"
                 className="form-control"
                 placeholder="Quận huyện"
-                value={district}
-                onChange={(e) => setDistrict(e.target.value)}
+                value={districtLocation}
+                onChange={(e) => setDistrictLocation(e.target.value)}
               />
 
             </div>
@@ -169,20 +170,37 @@ function ManagerStoreMenber(props) {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Số - Phường Xã"
-                value={addressStore}
-                onChange={(e) => setAddresStore(e.target.value)}
+                placeholder="Số"
+                value={addressLocation}
+                onChange={(e) => setAddressLocation(e.target.value)}
               />
             </div>
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Địa chỉ quận huyện chi tiết"
+                value={districtDetailLocation}
+                onChange={(e) => setDistrictDetailLocation(e.target.value)}
+              />
+            </div>
+
             <button style={{ float: 'right', marginLeft: 15 }} onClick={() => openModal('Store')} className="btn btn-info">Xem</button>
             <button style={{ float: 'right' }}
-              onClick={() => callApi('post', '/postStore', { address: addressStore, province: province, district: district }).then(() => {
-                getStore()
-                setAddresStore('');
-                setProvince('');
-                setDistrict('')
-                swal()
-              }).catch(() => swalErr())}
+              onClick={() => callApi('post', '/postStore',
+                {
+                  cityLocation: cityLocation,
+                  districtLocation: districtLocation,
+                  addressLocation: addressLocation,
+                  districtDetailLocation: districtDetailLocation
+                }).then(() => {
+                  getStore()
+                  setAddressLocation('');
+                  setCityLocation('');
+                  setDistrictLocation('')
+                  setDistrictDetailLocation('')
+                  swal()
+                }).catch(() => swalErr())}
               className="btn btn-info">Thêm</button>
           </div>
           <div className="col-lg-6">
@@ -260,7 +278,7 @@ function ManagerStoreMenber(props) {
           </div>
           <div className="col-lg-4">
             <Calendar
-              onChange={(e) => { setTime(e)}}
+              onChange={(e) => { setTime(e) }}
               value={time}
             ></Calendar>
             <button style={{ marginTop: 20 }} onClick={postBookMenberCut} type="button" className="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Hoàn thành tạo lịch</button>

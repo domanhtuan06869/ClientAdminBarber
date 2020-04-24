@@ -1,16 +1,14 @@
 
-import React, { useRef, useEffect ,useState} from 'react'
-import { BrowserRouter,HashRouter,NavLink, Route, Link,Switch } from "react-router-dom";
+import React, { useRef, useEffect, useState } from 'react'
+import { BrowserRouter, HashRouter, NavLink, Route, Link, Switch } from "react-router-dom";
 import clsx from 'clsx';
 import ManagerCalender from './ManagerCalender'
-import Customer from './Customer'
+import Products from './Products'
 import NewsAdmin from './ManagerStoreMenber'
 import Chart from './Chart'
 import Slider from './SliderManager'
 import UpdateInfomation from './UpdateInfomation'
 import Oders from './Oders'
-
-
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -27,7 +25,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import { MainListItems, SecondaryListItems} from './Listleft';
+import { MainListItems, SecondaryListItems } from './Listleft';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -113,18 +111,14 @@ const useStyles = makeStyles(theme => ({
 function Admin(props) {
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-
-const [colorHome,setColorHome]=useState('blue')
-const[colorContact,setColorContact]=useState('#3C3C3C')
-const [colorNews,setColorNews]=useState('#3C3C3C')
-const [colorCustomer,setColorCustomer]=useState('#3C3C3C')
-const [colorSlider,setColorSilder]=useState('#3C3C3C')
-const [colorOder,setColorOder]=useState('#3C3C3C')
-const [colorInfo,setColorInfo]=useState('#3C3C3C')
-
-
-
+  const [open, setOpen] = useState(true);
+  const [colorHome, setColorHome] = useState('blue')
+  const [colorContact, setColorContact] = useState('#3C3C3C')
+  const [colorNews, setColorNews] = useState('#3C3C3C')
+  const [colorProduct, setColorProduct] = useState('#3C3C3C')
+  const [colorSlider, setColorSilder] = useState('#3C3C3C')
+  const [colorOder, setColorOder] = useState('#3C3C3C')
+  const [colorInfo, setColorInfo] = useState('#3C3C3C')
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -132,7 +126,6 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
 
   function logout() {
     fetch('/logout', {
@@ -149,172 +142,169 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
       .catch(err => {
         console.error(err);
         alert('Error logging in please try again');
-        
+
       })
+  }
+
+
+  useEffect(() => {
+    if (window.outerWidth <= 676) {
+      setOpen(false)
     }
-
-
-    useEffect(()=>{
-      if(window.outerWidth<=676){
-        setOpen(false)
-      }
     setColorRouter()
 
-    },[])
+  }, [])
 
-    function setColorRouter(){
-      if(props.location.hash==='#/'){
-        setColorHome('blue')
-        setColorContact('#3C3C3C')
-        setColorNews('#3C3C3C')
-        setColorCustomer('#3C3C3C')
-        setColorSilder('#3C3C3C')
-        setColorOder('#3C3C3C')
-
-    
-      }
-     else if(props.location.hash==='#/managercalendarcut'){
-        setColorContact('blue')
-        setColorHome('#3C3C3C')
-        setColorNews('#3C3C3C')
-        setColorCustomer('#3C3C3C')
-        setColorSilder('#3C3C3C')
-        setColorOder('#3C3C3C')
-        setColorInfo('#3C3C3C')
-    
-      } else if(props.location.hash==='#/newsAdmin'){
-        setColorContact('#3C3C3C')
-        setColorHome('#3C3C3C')
-        setColorNews('blue')
-        setColorCustomer('#3C3C3C')
-        setColorSilder('#3C3C3C')
-        setColorOder('#3C3C3C')
-        setColorInfo('#3C3C3C')
-
-        
-      } else if(props.location.hash==='#/customer'){
-        setColorContact('#3C3C3C')
-        setColorHome('#3C3C3C')
-        setColorNews('#3C3C3C')
-        setColorCustomer('blue')
-        setColorSilder('#3C3C3C')
-        setColorOder('#3C3C3C')
-        setColorInfo('#3C3C3C')
-
-      }
-      else if(props.location.hash==='#/slider'){
-        setColorContact('#3C3C3C')
-        setColorHome('#3C3C3C')
-        setColorNews('#3C3C3C')
-        setColorCustomer('#3C3C3C')
-        setColorSilder('blue')
-        setColorOder('#3C3C3C')
-        setColorInfo('#3C3C3C')
-
-      }
-      else if(props.location.hash==='#/oders'){
-        setColorContact('#3C3C3C')
-        setColorHome('#3C3C3C')
-        setColorNews('#3C3C3C')
-        setColorCustomer('#3C3C3C')
-        setColorSilder('#3C3C3C')
-        setColorOder('blue')
-        setColorInfo('#3C3C3C')
-      }
-      else if(props.location.hash==='#/updateinfomation'){
-        setColorContact('#3C3C3C')
-        setColorHome('#3C3C3C')
-        setColorNews('#3C3C3C')
-        setColorCustomer('#3C3C3C')
-        setColorSilder('#3C3C3C')
-        setColorOder('#3C3C3C')
-        setColorInfo('blue')
-      }
+  function setColorRouter() {
+    if (props.location.hash === '#/') {
+      setColorHome('blue')
+      setColorContact('#3C3C3C')
+      setColorNews('#3C3C3C')
+      setColorProduct('#3C3C3C')
+      setColorSilder('#3C3C3C')
+      setColorOder('#3C3C3C')
     }
+    else if (props.location.hash === '#/managercalendarcut') {
+      setColorContact('blue')
+      setColorHome('#3C3C3C')
+      setColorNews('#3C3C3C')
+      setColorProduct('#3C3C3C')
+      setColorSilder('#3C3C3C')
+      setColorOder('#3C3C3C')
+      setColorInfo('#3C3C3C')
 
-    function Copyright() {
-      return (
-        <Typography variant="body2" color="textSecondary" align="center">
-          {'Copyright © '}
-          <Link color="inherit" href="#">
-           Barber
+    } else if (props.location.hash === '#/newsAdmin') {
+      setColorContact('#3C3C3C')
+      setColorHome('#3C3C3C')
+      setColorNews('blue')
+      setColorProduct('#3C3C3C')
+      setColorSilder('#3C3C3C')
+      setColorOder('#3C3C3C')
+      setColorInfo('#3C3C3C')
+
+
+    } else if (props.location.hash === '#/products') {
+      setColorContact('#3C3C3C')
+      setColorHome('#3C3C3C')
+      setColorNews('#3C3C3C')
+      setColorProduct('blue')
+      setColorSilder('#3C3C3C')
+      setColorOder('#3C3C3C')
+      setColorInfo('#3C3C3C')
+
+    }
+    else if (props.location.hash === '#/slider') {
+      setColorContact('#3C3C3C')
+      setColorHome('#3C3C3C')
+      setColorNews('#3C3C3C')
+      setColorProduct('#3C3C3C')
+      setColorSilder('blue')
+      setColorOder('#3C3C3C')
+      setColorInfo('#3C3C3C')
+
+    }
+    else if (props.location.hash === '#/oders') {
+      setColorContact('#3C3C3C')
+      setColorHome('#3C3C3C')
+      setColorNews('#3C3C3C')
+      setColorProduct('#3C3C3C')
+      setColorSilder('#3C3C3C')
+      setColorOder('blue')
+      setColorInfo('#3C3C3C')
+    }
+    else if (props.location.hash === '#/updateinfomation') {
+      setColorContact('#3C3C3C')
+      setColorHome('#3C3C3C')
+      setColorNews('#3C3C3C')
+      setColorProduct('#3C3C3C')
+      setColorSilder('#3C3C3C')
+      setColorOder('#3C3C3C')
+      setColorInfo('blue')
+    }
+  }
+
+  function Copyright() {
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © '}
+        <Link color="inherit" href="#">
+          Barber
           </Link>{' '}
-          {new Date().getFullYear()}
-          {'.'}
-        </Typography>
-      );
-    }
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
   return (
     <BrowserRouter>
-    <HashRouter>
-    <div>
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar style={{height:'8.8%'}} position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar  className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+      <HashRouter>
+        <div>
+          <div className={classes.root}>
+            <CssBaseline />
+            <AppBar style={{ height: '8.8%' }} position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+              <Toolbar className={classes.toolbar}>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleDrawerOpen}
+                  className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                  Dashboard
           </Typography>
-          <IconButton color="inherit">     
-          <FontAwesomeIcon size="lg" onClick={()=> logout()} title="Đăng xuất" icon={faSignOutAlt} />
-           
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div style={{backgroundColor:'#101E59',height:'8.8%'}} className={classes.toolbarIcon}>
-          <h1  style={{marginTop:'4%',color:'white'}}>Barber</h1>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon style={{color:'white'}} />
-          </IconButton>
-        </div>
-        <Divider />
-        <List><MainListItems color={{colorHome:colorHome,colorContact:colorContact,
-          colorCustomer:colorCustomer,colorNews:colorNews,colorSlider:colorSlider,colorOder:colorOder}} > </MainListItems></List>
-        <Divider />
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-        <div className="content">
-          <Switch>
-                    <Route exact path='/' render={(props) => <Chart setColor={setColorRouter} />}/>
-                      <Route path='/newsAdmin' render={(props) => <NewsAdmin setColor={setColorRouter} />}/>
-                      <Route path='/managercalendarcut' render={(props) => <ManagerCalender setColor={setColorRouter} />}/>
-                      <Route path='/customer' render={(props) => <Customer setColor={setColorRouter} />}/>
-                      <Route path='/oders' render={(props) => <Oders setColor={setColorRouter} />}/>
-                      <Route path='/slider' render={(props) => <Slider setColor={setColorRouter} />}/>
-                      <Route path='/updateinfomation' render={(props) => <UpdateInfomation setColor={setColorRouter} />}/>
+                <IconButton color="inherit">
+                  <FontAwesomeIcon size="lg" onClick={() => logout()} title="Đăng xuất" icon={faSignOutAlt} />
 
-          </Switch>
-            
-                     
-      </div>
-      <Box style={{marginTop:15}} pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
-    </div>
-   
-    </div>
-    </HashRouter>
-  </BrowserRouter>
+                </IconButton>
+              </Toolbar>
+            </AppBar>
+            <Drawer
+              variant="permanent"
+              classes={{
+                paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+              }}
+              open={open}
+            >
+              <div style={{ backgroundColor: '#101E59', height: '8.8%' }} className={classes.toolbarIcon}>
+                <h1 style={{ marginTop: '4%', color: 'white' }}>Barber</h1>
+                <IconButton onClick={handleDrawerClose}>
+                  <ChevronLeftIcon style={{ color: 'white' }} />
+                </IconButton>
+              </div>
+              <Divider />
+              <List><MainListItems color={{
+                colorHome: colorHome, colorContact: colorContact,
+                colorProduct: colorProduct, colorNews: colorNews, colorSlider: colorSlider, colorOder: colorOder
+              }} > </MainListItems></List>
+              <Divider />
+            </Drawer>
+            <main className={classes.content}>
+              <div className={classes.appBarSpacer} />
+              <Container maxWidth="lg" className={classes.container}>
+                <div className="content">
+                  <Switch>
+                    <Route exact path='/' render={(props) => <Chart setColor={setColorRouter} />} />
+                    <Route path='/newsAdmin' render={(props) => <NewsAdmin setColor={setColorRouter} />} />
+                    <Route path='/managercalendarcut' render={(props) => <ManagerCalender setColor={setColorRouter} />} />
+                    <Route path='/products' render={(props) => <Products setColor={setColorRouter} />} />
+                    <Route path='/oders' render={(props) => <Oders setColor={setColorRouter} />} />
+                    <Route path='/slider' render={(props) => <Slider setColor={setColorRouter} />} />
+                    <Route path='/updateinfomation' render={(props) => <UpdateInfomation setColor={setColorRouter} />} />
+                  </Switch>
+                </div>
+                <Box style={{ marginTop: 15 }} pt={4}>
+                  <Copyright />
+                </Box>
+              </Container>
+            </main>
+          </div>
+
+        </div>
+      </HashRouter>
+    </BrowserRouter>
   )
 }
 export default Admin

@@ -48,10 +48,10 @@ export const  MainListItems =({color})=> (
   </NavLink>
 
   
-  <NavLink style={{color:color.colorCustomer}} to='/customer'>
+  <NavLink style={{color:color.colorProduct}} to='/products'>
   <ListItem button>
     <ListItemIcon>
-      <BarChartIcon htmlColor={color.colorCustomer}  lightingColor={color.colorCustomer}  />
+      <BarChartIcon htmlColor={color.colorProduct}  lightingColor={color.colorProduct}  />
     </ListItemIcon>
     <ListItemText primary="Sẩn phẩm" />
   </ListItem>

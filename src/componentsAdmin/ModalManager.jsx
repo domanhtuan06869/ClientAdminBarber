@@ -12,7 +12,7 @@ export const GetStore = (data) => {
             {data.data.map((item) =>
                 <div style={{ marginTop: 5 }} class="card card-body">
                     <div key={item._id} className="row">
-                        <div className="col-lg-11">{item.province} - {item.district} - {item.address}</div>
+                        <div className="col-lg-11">{item.addressLocation} - {item.districtDetailLocation} - {item.cityLocation}</div>
                         <div className="col-lg-1"><DeleteIcon onClick={() => callApi('delete', '/deleteStore', { id: item._id }).then((res) => dispacth({ type: 'DELETE_STORE', data: item._id }))}></DeleteIcon></div>
                     </div>
                 </div>

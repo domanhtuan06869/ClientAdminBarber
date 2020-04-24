@@ -24,7 +24,7 @@ const customStyles = {
         marginTop: '5%'
     }
 };
-function Customer(props) {
+function Products(props) {
     /*Contact */
     const [listProduct, setListProduct] = useState([])
     const [showModal, setShowModal] = useState(false)
@@ -248,4 +248,4 @@ function Customer(props) {
     )
 
 }
-export default Customer
+export default Products

@@ -29,12 +29,12 @@ export const  MainListItems =({color})=> (
 
 
 
-    <NavLink style={{color:color.colorNews}} to='/newsAdmin'>
+    <NavLink style={{color:color.colorManagerStoreMenber}} to='/managerMenber'>
   <ListItem button>
     <ListItemIcon>
-      <AssignmentIcon   htmlColor={color.colorNews}  lightingColor={color.colorNews} />
+      <AssignmentIcon   htmlColor={color.colorManagerStoreMenber}  lightingColor={color.colorManagerStoreMenber} />
     </ListItemIcon>
-    <ListItemText primary="Quản lí tạo đặt lịch" />
+    <ListItemText primary="Quản lí Thợ và Địa chỉ" />
   </ListItem>
   </NavLink>
 

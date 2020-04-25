@@ -9,7 +9,7 @@ export default {
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         opacity: '80%',
-        background: 'linear-gradient(to right, #ffffff 29%, #ffffff 96%)',
+        background: '#ffcc33',
         marginTop: '5%'
     }
 };

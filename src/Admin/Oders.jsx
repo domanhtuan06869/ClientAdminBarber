@@ -96,7 +96,7 @@ function Oders(props) {
                 </div>
             </div>
             <div style={{ marginTop: 20 }} className="row">
-                <div className="col-lg-3">
+                <div style={{ padding: 0 }} className="col-lg-3">
                     <label className="mr-sm-2" htmlFor="SelectAdrress">Trạng thái đơn hàng</label>
                     <select defaultValue="0" name="Chọn một trạng thái" onChange={handleChangeSelect} className="custom-select mr-sm-2" id="SelectAdrress">
                         <option value="0">Đơn đã nhận</option>
@@ -104,7 +104,7 @@ function Oders(props) {
                         <option value="2">Hoàn thành</option>
                     </select>
                 </div>
-
+                <div style={{  marginTop: 30 }} className="col-lg-2"><p style={{ fontWeight: 'bold', marginTop: 10 }}>Tổng : {listOder.length}</p></div>
             </div>
             <div>
                 {
@@ -116,14 +116,14 @@ function Oders(props) {
                         :
                         <div ref={componentRef}>
                             {
-                                <div style={{ marginTop: 10, backgroundColor: '#ccc' }} className="row">
-                                    <div className="col-lg-2">Tên sản phẩm</div>
-                                    <div className="col-lg-2">Hình ảnh</div>
-                                    <div className="col-lg-1">Tên khách hàng</div>
-                                    <div className="col-lg-1">SĐT</div>
-                                    <div className="col-lg-2">Địa chỉ</div>
-                                    <div className="col-lg-1">Đơn giá</div>
-                                    <div className="col-lg-1">Số lượng</div>
+                                <div style={{ marginTop: 10 }} className="row border border-dark">
+                                    <div className="col-lg-2 border-right border-dark">Tên sản phẩm</div>
+                                    <div className="col-lg-2 border-right border-dark">Hình ảnh</div>
+                                    <div className="col-lg-1 border-right border-dark">Tên khách hàng</div>
+                                    <div className="col-lg-1 border-right border-dark">SĐT</div>
+                                    <div className="col-lg-2 border-right border-dark">Địa chỉ</div>
+                                    <div className="col-lg-1 border-right border-dark">Đơn giá</div>
+                                    <div className="col-lg-1 border-right border-dark">Số lượng</div>
                                     <div className="col-lg-2">Thành tiền</div>
                                 </div>
                             }
@@ -139,7 +139,7 @@ function Oders(props) {
                                             <div className="col-lg-1">{item.phoneNumber}</div>
                                             <div className="col-lg-2">{item.address}</div>
                                             <div className="col-lg-1">{item.priceProduct} vnđ</div>
-                                            <div className="col-lg-1">{item.amountProduct} vnđ</div>
+                                            <div className="col-lg-1">{item.amountProduct}</div>
                                             <div className="col-lg-2">
                                                 <div>{item.amountProduct * item.priceProduct}</div>
                                                 <div>

@@ -4,7 +4,7 @@ import { BrowserRouter, HashRouter, NavLink, Route, Link, Switch } from "react-r
 import clsx from 'clsx';
 import ManagerCalender from './ManagerCalender'
 import Products from './Products'
-import NewsAdmin from './ManagerStoreMenber'
+import ManagerStoreMenber from './ManagerStoreMenber'
 import Chart from './Chart'
 import Slider from './SliderManager'
 import UpdateInfomation from './UpdateInfomation'
@@ -114,7 +114,7 @@ function Admin(props) {
   const [open, setOpen] = useState(true);
   const [colorHome, setColorHome] = useState('blue')
   const [colorContact, setColorContact] = useState('#3C3C3C')
-  const [colorNews, setColorNews] = useState('#3C3C3C')
+  const [colorManagerStoreMenber, setColorManagerStoreMenber] = useState('#3C3C3C')
   const [colorProduct, setColorProduct] = useState('#3C3C3C')
   const [colorSlider, setColorSilder] = useState('#3C3C3C')
   const [colorOder, setColorOder] = useState('#3C3C3C')
@@ -159,7 +159,7 @@ function Admin(props) {
     if (props.location.hash === '#/') {
       setColorHome('blue')
       setColorContact('#3C3C3C')
-      setColorNews('#3C3C3C')
+      setColorManagerStoreMenber('#3C3C3C')
       setColorProduct('#3C3C3C')
       setColorSilder('#3C3C3C')
       setColorOder('#3C3C3C')
@@ -167,16 +167,16 @@ function Admin(props) {
     else if (props.location.hash === '#/managercalendarcut') {
       setColorContact('blue')
       setColorHome('#3C3C3C')
-      setColorNews('#3C3C3C')
+      setColorManagerStoreMenber('#3C3C3C')
       setColorProduct('#3C3C3C')
       setColorSilder('#3C3C3C')
       setColorOder('#3C3C3C')
       setColorInfo('#3C3C3C')
 
-    } else if (props.location.hash === '#/newsAdmin') {
+    } else if (props.location.hash === '#/managerMenber') {
       setColorContact('#3C3C3C')
       setColorHome('#3C3C3C')
-      setColorNews('blue')
+      setColorManagerStoreMenber('blue')
       setColorProduct('#3C3C3C')
       setColorSilder('#3C3C3C')
       setColorOder('#3C3C3C')
@@ -186,7 +186,7 @@ function Admin(props) {
     } else if (props.location.hash === '#/products') {
       setColorContact('#3C3C3C')
       setColorHome('#3C3C3C')
-      setColorNews('#3C3C3C')
+      setColorManagerStoreMenber('#3C3C3C')
       setColorProduct('blue')
       setColorSilder('#3C3C3C')
       setColorOder('#3C3C3C')
@@ -196,7 +196,7 @@ function Admin(props) {
     else if (props.location.hash === '#/slider') {
       setColorContact('#3C3C3C')
       setColorHome('#3C3C3C')
-      setColorNews('#3C3C3C')
+      setColorManagerStoreMenber('#3C3C3C')
       setColorProduct('#3C3C3C')
       setColorSilder('blue')
       setColorOder('#3C3C3C')
@@ -206,7 +206,7 @@ function Admin(props) {
     else if (props.location.hash === '#/oders') {
       setColorContact('#3C3C3C')
       setColorHome('#3C3C3C')
-      setColorNews('#3C3C3C')
+      setColorManagerStoreMenber('#3C3C3C')
       setColorProduct('#3C3C3C')
       setColorSilder('#3C3C3C')
       setColorOder('blue')
@@ -215,7 +215,7 @@ function Admin(props) {
     else if (props.location.hash === '#/updateinfomation') {
       setColorContact('#3C3C3C')
       setColorHome('#3C3C3C')
-      setColorNews('#3C3C3C')
+      setColorManagerStoreMenber('#3C3C3C')
       setColorProduct('#3C3C3C')
       setColorSilder('#3C3C3C')
       setColorOder('#3C3C3C')
@@ -241,7 +241,7 @@ function Admin(props) {
         <div>
           <div className={classes.root}>
             <CssBaseline />
-            <AppBar style={{ height: '8.8%' }} position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+            <AppBar style={{ height: '8.8%',backgroundColor:'#ffcc33' }} position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
               <Toolbar className={classes.toolbar}>
                 <IconButton
                   edge="start"
@@ -268,7 +268,7 @@ function Admin(props) {
               }}
               open={open}
             >
-              <div style={{ backgroundColor: '#101E59', height: '8.8%' }} className={classes.toolbarIcon}>
+              <div style={{ backgroundColor: '#ffcc33', height: '8.8%' }} className={classes.toolbarIcon}>
                 <h1 style={{ marginTop: '4%', color: 'white' }}>Barber</h1>
                 <IconButton onClick={handleDrawerClose}>
                   <ChevronLeftIcon style={{ color: 'white' }} />
@@ -277,7 +277,7 @@ function Admin(props) {
               <Divider />
               <List><MainListItems color={{
                 colorHome: colorHome, colorContact: colorContact,
-                colorProduct: colorProduct, colorNews: colorNews, colorSlider: colorSlider, colorOder: colorOder
+                colorProduct: colorProduct, colorManagerStoreMenber: colorManagerStoreMenber, colorSlider: colorSlider, colorOder: colorOder
               }} > </MainListItems></List>
               <Divider />
             </Drawer>
@@ -287,7 +287,7 @@ function Admin(props) {
                 <div className="content">
                   <Switch>
                     <Route exact path='/' render={(props) => <Chart setColor={setColorRouter} />} />
-                    <Route path='/newsAdmin' render={(props) => <NewsAdmin setColor={setColorRouter} />} />
+                    <Route path='/managerMenber' render={(props) => <ManagerStoreMenber setColor={setColorRouter} />} />
                     <Route path='/managercalendarcut' render={(props) => <ManagerCalender setColor={setColorRouter} />} />
                     <Route path='/products' render={(props) => <Products setColor={setColorRouter} />} />
                     <Route path='/oders' render={(props) => <Oders setColor={setColorRouter} />} />

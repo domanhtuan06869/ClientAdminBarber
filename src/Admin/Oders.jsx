@@ -73,14 +73,22 @@ function Oders(props) {
             return (
                 <div>
                     <div> <button style={{ fontSize: 11 }} onClick={() => updateOder(1, props.id)} className="btn btn-info">Xác nhận gửi</button></div>
-                    <div> <button style={{ fontSize: 11, marginTop: 5 }} onClick={() => deleteOder(props.id)} className="btn btn-danger"> Hủy</button></div>
+                    <div> <button style={{ fontSize: 11, marginTop: 5 }} onClick={() => updateOder(3,props.id)} className="btn btn-danger"> Hủy</button></div>
                 </div>
             )
         } else if (selected === "1") {
             return (
-                <button onClick={() => updateOder(2, props.id)} style={{ fontSize: 11 }} className="btn btn-info"> Xác nhận thành công</button>
+                <div>
+                    <button onClick={() => updateOder(2, props.id)} style={{ fontSize: 11 }} className="btn btn-info"> Xác nhận thành công</button>
+                    <div> <button style={{ fontSize: 11, marginTop: 5 }} onClick={() => updateOder(3, props.id)} className="btn btn-danger"> Hủy</button></div>
+                </div>
             )
-        } else {
+        } else if(selected === "3"){
+            return(
+                <button onClick={() => deleteOder(props.id)} style={{ fontSize: 11 }} className="btn btn-danger"> Xóa</button>
+            )
+        }
+         else {
             return null
         }
     }
@@ -102,9 +110,10 @@ function Oders(props) {
                         <option value="0">Đơn đã nhận</option>
                         <option value="1">Đơn đã gửi</option>
                         <option value="2">Hoàn thành</option>
+                        <option value="3">Đã hủy</option>
                     </select>
                 </div>
-                <div style={{  marginTop: 30 }} className="col-lg-2"><p style={{ fontWeight: 'bold', marginTop: 10 }}>Tổng : {listOder.length}</p></div>
+                <div style={{ marginTop: 30 }} className="col-lg-2"><p style={{ fontWeight: 'bold', marginTop: 10 }}>Tổng : {listOder.length}</p></div>
             </div>
             <div>
                 {
@@ -117,14 +126,14 @@ function Oders(props) {
                         <div ref={componentRef}>
                             {
                                 <div style={{ marginTop: 10 }} className="row border border-dark">
-                                    <div className="col-lg-2 border-right border-dark">Tên sản phẩm</div>
-                                    <div className="col-lg-2 border-right border-dark">Hình ảnh</div>
-                                    <div className="col-lg-1 border-right border-dark">Tên khách hàng</div>
-                                    <div className="col-lg-1 border-right border-dark">SĐT</div>
-                                    <div className="col-lg-2 border-right border-dark">Địa chỉ</div>
-                                    <div className="col-lg-1 border-right border-dark">Đơn giá</div>
-                                    <div className="col-lg-1 border-right border-dark">Số lượng</div>
-                                    <div className="col-lg-2">Thành tiền</div>
+                                    <div style={{fontWeight:'bold'}} className="col-lg-2 border-right border-dark">Tên sản phẩm</div>
+                                    <div style={{fontWeight:'bold'}} className="col-lg-2 border-right border-dark">Hình ảnh</div>
+                                    <div style={{fontWeight:'bold'}} className="col-lg-1 border-right border-dark">Tên khách hàng</div>
+                                    <div style={{fontWeight:'bold'}} className="col-lg-1 border-right border-dark">SĐT</div>
+                                    <div style={{fontWeight:'bold'}} className="col-lg-2 border-right border-dark">Địa chỉ</div>
+                                    <div style={{fontWeight:'bold'}} className="col-lg-1 border-right border-dark">Đơn giá</div>
+                                    <div style={{fontWeight:'bold'}} className="col-lg-1 border-right border-dark">Số lượng</div>
+                                    <div style={{fontWeight:'bold'}} className="col-lg-2">Thành tiền</div>
                                 </div>
                             }
                             {
@@ -141,7 +150,7 @@ function Oders(props) {
                                             <div className="col-lg-1">{item.priceProduct} vnđ</div>
                                             <div className="col-lg-1">{item.amountProduct}</div>
                                             <div className="col-lg-2">
-                                                <div>{item.amountProduct * item.priceProduct}</div>
+                                                <div>{item.amountProduct * item.priceProduct} vnđ</div>
                                                 <div>
                                                     <CheckClick id={item._id}></CheckClick>
                                                 </div>

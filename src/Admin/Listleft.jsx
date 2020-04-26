@@ -32,16 +32,16 @@ export const  MainListItems =({color})=> (
     <NavLink style={{color:color.colorManagerStoreMenber}} to='/managerMenber'>
   <ListItem button>
     <ListItemIcon>
-      <AssignmentIcon   htmlColor={color.colorManagerStoreMenber}  lightingColor={color.colorManagerStoreMenber} />
+      <Team   htmlColor={color.colorManagerStoreMenber}  lightingColor={color.colorManagerStoreMenber} />
     </ListItemIcon>
-    <ListItemText primary="Quản lí Thợ và Địa chỉ" />
+    <ListItemText primary="Quản lí thợ và địa chỉ" />
   </ListItem>
   </NavLink>
 
   <NavLink style={{color:color.colorContact}} to='/managercalendarcut'>
   <ListItem button>
     <ListItemIcon>
-      <LayersIcon htmlColor={color.colorSlider}  lightingColor={color.colorSlider} />
+      <LayersIcon htmlColor={color.colorContact}  lightingColor={color.colorContact} />
     </ListItemIcon>
     <ListItemText primary="Quản lí khách đặt" />
   </ListItem>
@@ -60,7 +60,7 @@ export const  MainListItems =({color})=> (
   <NavLink style={{color:color.colorOder}} to='/oders'>
   <ListItem button>
     <ListItemIcon>
-      <BarChartIcon htmlColor={color.colorOder}  lightingColor={color.colorOder}  />
+      <AssignmentIcon htmlColor={color.colorOder}  lightingColor={color.colorOder}  />
     </ListItemIcon>
     <ListItemText primary="Sản phẩm khách đặt" />
   </ListItem>

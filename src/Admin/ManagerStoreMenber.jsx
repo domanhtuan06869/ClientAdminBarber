@@ -20,7 +20,7 @@ function ManagerStoreMenber(props) {
   const [listMenber, setListMenber] = useState([]);
   const [cityLocation, setCityLocation] = useState('');
   const [districtLocation, setDistrictLocation] = useState('');
-  const [districtDetailLocation,setDistrictDetailLocation]=useState('');
+  const [districtDetailLocation, setDistrictDetailLocation] = useState('');
   const [addressLocation, setAddressLocation] = useState('');
   const [listStoreMenber, setListStoreMenber] = useState('');
   const [nameMenber, setNameMenber] = useState('');
@@ -72,22 +72,9 @@ function ManagerStoreMenber(props) {
     const { data } = await axios('/getMenber')
     setListMenber(data)
   }
-  const postBookMenberCut = () => {
-    listDomMenber.map((item) => {
-      callApi('post', '/postBook', {
-        province: listDomAddres[0].province,
-        district: listDomAddres[0].district,
-        address: listDomAddres[0].address,
-        name: item.name,
-        datetime: time,
-        phone: item.phone,
-        id_store: listDomAddres[0]._id
-      })
-    })
 
-  }
   const postMenber = async () => {
-    callApi('post', '/postMenber', { nameStylistame: nameMenber, ratingStylist: ratingStylist}).then(() => {
+    callApi('post', '/postMenber', { nameStylist: nameMenber, ratingStylist: ratingStylist }).then(() => {
       setNameMenber('')
       setRatingStylist('');
       swal()
@@ -98,14 +85,16 @@ function ManagerStoreMenber(props) {
     getStore()
     props.setColor();
   }, [])
-  useEffect(() => {
 
-    if (listDomAddres.length > 1) {
-      setListDomAddress(state => state.slice(1, 2));
+  const checkValidateStore = () => {
+    if (cityLocation === '' || districtLocation === '' || districtDetailLocation === '' || addressLocation === '') {
+      alert('Vui lòng nhập đủ các trường dữ liệu')
+      return true
+    } else {
+      return false
     }
-    console.log(listDomAddres)
+  }
 
-  }, [listDomAddres])
   const ReturnModal = () => {
     if (listStoreMenber === 'Store') {
       return (
@@ -124,7 +113,37 @@ function ManagerStoreMenber(props) {
         <AddAddressCut data={listStore} setAddress={setListDomAddress}> </AddAddressCut>
       )
     }
+  }
 
+  const postStore = () => {
+    if (!checkValidateStore()) {
+      callApi('post', '/postStore',
+        {
+          cityLocation: cityLocation,
+          districtLocation: districtLocation,
+          addressLocation: addressLocation,
+          districtDetailLocation: districtDetailLocation
+        }).then(() => {
+          getStore()
+          setAddressLocation('');
+          setCityLocation('');
+          setDistrictLocation('')
+          setDistrictDetailLocation('')
+          swal()
+        }).catch(() => swalErr())
+    }
+  }
+
+  const HeaderModal = () => {
+    let title;
+    if (listStoreMenber === 'Menber') {
+      title = 'Danh sách thợ'
+    } else if (listStoreMenber === 'Store') {
+      title = 'Danh sách địa chỉ'
+    }
+    return (
+      <h3>{title} </h3>
+    )
   }
   return (
     <div style={{ width: '100%' }}>
@@ -135,7 +154,7 @@ function ManagerStoreMenber(props) {
         style={customStyles}
         contentLabel="Example Modal">
         <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
-        <h2> {listStoreMenber}</h2>
+        <HeaderModal />
         <ReturnModal />
       </Modal>
       <div style={{ marginTop: 5 }} className="card card-body">
@@ -147,7 +166,7 @@ function ManagerStoreMenber(props) {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Tỉnh Thành Phố"
+                placeholder="Tỉnh thành phố"
                 value={cityLocation}
                 onChange={(e) => setCityLocation(e.target.value)}
               />
@@ -184,20 +203,7 @@ function ManagerStoreMenber(props) {
 
             <button style={{ float: 'right', marginLeft: 15 }} onClick={() => openModal('Store')} className="btn btn-info">Xem</button>
             <button style={{ float: 'right' }}
-              onClick={() => callApi('post', '/postStore',
-                {
-                  cityLocation: cityLocation,
-                  districtLocation: districtLocation,
-                  addressLocation: addressLocation,
-                  districtDetailLocation: districtDetailLocation
-                }).then(() => {
-                  getStore()
-                  setAddressLocation('');
-                  setCityLocation('');
-                  setDistrictLocation('')
-                  setDistrictDetailLocation('')
-                  swal()
-                }).catch(() => swalErr())}
+              onClick={postStore}
               className="btn btn-info">Thêm</button>
           </div>
           <div className="col-lg-6">

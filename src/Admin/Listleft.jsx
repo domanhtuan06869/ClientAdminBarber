@@ -65,6 +65,15 @@ export const  MainListItems =({color})=> (
     <ListItemText primary="Sản phẩm khách đặt" />
   </ListItem>
   </NavLink>
+
+  <NavLink style={{color:color.colorSlider}} to='/service'>
+    <ListItem button>
+      <ListItemIcon>
+        <LayersIcon htmlColor={color.colorSlider}  lightingColor={color.colorSlider} />
+      </ListItemIcon>
+      <ListItemText primary="Quản lí dịch vụ" />
+    </ListItem>
+    </NavLink>
 </div>
 );
 
@@ -92,6 +101,7 @@ export const SecondaryListItems =({color})=>(
       <ListItemText primary="Quản lí cán bộ" />
     </ListItem>
     </NavLink>
+
 
 
   </div>

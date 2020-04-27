@@ -193,7 +193,7 @@ function Admin(props) {
       setColorInfo('#3C3C3C')
 
     }
-    else if (props.location.hash === '#/slider') {
+    else if (props.location.hash === '#/service') {
       setColorContact('#3C3C3C')
       setColorHome('#3C3C3C')
       setColorManagerStoreMenber('#3C3C3C')
@@ -291,7 +291,7 @@ function Admin(props) {
                     <Route path='/managercalendarcut' render={(props) => <ManagerCalender setColor={setColorRouter} />} />
                     <Route path='/products' render={(props) => <Products setColor={setColorRouter} />} />
                     <Route path='/oders' render={(props) => <Oders setColor={setColorRouter} />} />
-                    <Route path='/slider' render={(props) => <Slider setColor={setColorRouter} />} />
+                    <Route path='/service' render={(props) => <Slider setColor={setColorRouter} />} />
                     <Route path='/updateinfomation' render={(props) => <UpdateInfomation setColor={setColorRouter} />} />
                   </Switch>
                 </div>

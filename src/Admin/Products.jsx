@@ -142,6 +142,7 @@ function Products(props) {
             setListProduct(state => state.filter((item) => item._id != id))
         })
     }
+    
     const checkValidate = () => {
         if (name === '' || type === '' || image === '' || price === '' || description === '' || ratingProduct == '') {
             alert('vui lòng nhập đủ các trường dữ liệu')

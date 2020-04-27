@@ -1,120 +1,55 @@
 import React, { useRef, useState, useEffect } from 'react'
 import close from '../assets/image/close.png'
-import 'react-quill/dist/quill.snow.css';
-import ReactQuill, { Quill } from 'react-quill';
 import axios from 'axios'
 import Modal from 'react-modal';
-import Add from '@material-ui/icons/Add';
-import qs from 'qs'
-import IconButton from '@material-ui/core/IconButton';
+import { BallBeat } from 'react-pure-loaders';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
-import DeleteIcon from '@material-ui/icons/Delete';
-import Swal from "sweetalert2";
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import callApi from '../controller/resapi'
+import { swal, swalErr } from '../controller/swal'
 
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        opacity: '80%',
+        background: '#ffcc33',
+        marginTop: '2%'
+    }
+};
+function Service(props) {
 
-function SliderManager(props) {
-    /*Contact */
-    const [listNews, setListNews] = useState([])
+    const [listService, setListService] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [action, setAction] = useState('')
+    const [nameService, setNameService] = useState('')
+    const [detailService, setDetailService] = useState('')
+    const [priceService, setPriceService] = useState('')
     const [id, setId] = useState('')
-    const [stt, setStt] = useState('')
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
-    const [url, setUrl] = useState('')
-    const [checked, setChecked] = useState(false)
-
-
     const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(6);
 
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = listNews.slice(indexOfFirstPost, indexOfLastPost);
-    const paginate = pageNumber => setCurrentPage(pageNumber);
-    const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
-        const pageNumbers = [];
-
-        for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-            pageNumbers.push(i);
-        }
-
-        return (
-            <ul className='pagination' style={{ marginTop: 0, position: 'relative' }}>
-                {pageNumbers.map(number => (
-                    <li key={number} >
-                        <a onClick={() => paginate(number)} className='page-link'>
-                            {number}
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        );
-    };
-
-
-    /////////////////////////////////////////////////////////
-    const Posts = ({ posts, loading, openModal, deleteItem }) => {
-
-        if (loading) {
-            return <h2 style={{ margin: '0 auto', textAlign: 'center' }}>Loading...</h2>;
-        }
-
-        return (
-            <div class="row">
-
-                {posts.map((list) => (
-                    <div key={list._id} class="col-lg-3 col-md-12 mt-4">
-                        <div class="card">
-
-                            <img style={{ height: 200 }} class="card-img-top img-responsive" src={list.UrlImage} alt="Card image cap" />
-                            <div class="card-body">
-                                <p class="card-text">{list.Title}</p>
-
-                            </div>
-                            <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
-                                <span class="float-left">{list.Stt}</span>
-                                <span class="float-right">
-                                    <FontAwesomeIcon style={{ marginRight: 4, paddingTop: 2 }} className='icon-edit' onClick={() => openModal('Sửa', list._id, list.Stt, list.Title, list.Content, list.UrlImage)} size="lg" title="Sửa" icon={faEdit} >
-                                    </FontAwesomeIcon>
-                                    <DeleteIcon onClick={() => deleteItem({ id: list._id }, '/deleteSlider').then(() => getSlider())} className='delete-icon' titleAccess='Xóa'></DeleteIcon>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        );
-    };
-
-    /////////////////////////////////////
     useEffect(() => {
-        getSlider()
+        getService()
         props.setColor()
     }, [])
-    async function getSlider() {
+    async function getService() {
         setLoading(true)
-        const result = await axios('/getSlides')
-        setListNews(result.data)
+        const result = await axios('/getService')
+        setListService(result.data)
         setLoading(false);
     }
 
-    function openModal(action, id, stt, title, content, url) {
+    function openModal(action) {
         if (action === 'Thêm') {
             setAction('Thêm')
             setShowModal(true)
         } else {
             setAction('Sửa')
             setShowModal(true)
-            setId(id)
-            setUrl(url)
-            setStt(stt)
-            setContent(content)
-            setTitle(title)
-
-
         }
     }
 
@@ -123,65 +58,156 @@ function SliderManager(props) {
         setTimeout(() => {
             setAction('')
             setShowModal('')
-            setId('')
-            setUrl('')
-            setStt('')
-            setContent('')
-            setTitle('')
-            setChecked(false)
         }, 300)
 
     }
 
-    function swal() {
-        Swal.fire({
-            title: 'Thành công',
-            type: 'success',
-            icon: 'success'
-        });
-    }
-    function swalErr() {
-        Swal.fire({
-            title: 'Xóa Thành công',
-            type: 'success',
-            icon: 'error'
-        });
+    const addService = async () => {
+        if (!checkValidate()) {
+            callApi('post', '/postService', {
+                nameService: nameService,
+                detailService: detailService,
+                priceService: priceService,
+            }).then(() => {
+                swal()
+                closeModal()
+                getService()
+            })
+        }
     }
 
-    async function insertupdate(data, url, method) {
-        await axios({
-            method: method,
-            url: url,
-            data: data,
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then((res) => {
+    const editService = async () => {
+        if (!checkValidate()) {
+            callApi('post', '/updateService', {
+                id: id,
+                nameService: nameService,
+                detailService: detailService,
+                priceService: priceService,
+            }).then(() => {
+                swal()
+                closeModal()
+                getService()
+            })
+        }
+
+    }
+
+    const openModalEdit = (action,id,name,detail,price) => {
+        openModal(action)
+        setAction(action)
+        setId(id)
+        setNameService(name)
+        setDetailService(detail);
+        setPriceService(price)
+
+    }
+
+    const deleteService = async (id) => {
+        callApi('delete', '/deleteService', {
+            id: id,
+        }).then(() => {
             swal()
-            closeModal(false)
+            setListService(state => state.filter((item) => item._id != id))
         })
     }
-    async function deleteItem(data, url) {
-        await axios({
-            method: 'delete',
-            url: url,
-            data: data,
 
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then((res) => {
-            swalErr()
 
-        }).catch(() => {
-            alert('error')
-        })
+    const checkValidate = () => {
+        if (nameService === '' || detailService === '' || priceService === '') {
+            alert('Vui lòng nhập đủ các trường dữ liệu')
+            return true;
+        } else {
+            return false;
+        }
     }
 
     return (
-       <div>
+        <div>
+            <button onClick={() => openModal('Thêm')} style={{}} type="button" className="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Create New</button>
+            {loading ? < div className='loading' >
+                <BallBeat color={'#123abc'}
+                    loading={loading} />
+            </div > :
+                <div>
+                    <Modal
+                        closeTimeoutMS={500}
+                        isOpen={showModal}
+                        onRequestClose={closeModal}
+                        style={customStyles}
+                        contentLabel="Example Modal">
+                        <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
+                        <h2> {action}</h2>
+                        <div>
+                            <div>
+                                <label>Tên dịch vụ</label>
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Tên dịch vụ"
+                                        value={nameService}
+                                        onChange={(e) => setNameService(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label>Chi tiết dịch vụ</label>
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Chi tiết dịch vụ"
+                                        value={detailService}
+                                        onChange={(e) => setDetailService(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label>Giá dịch vụ</label>
+                                <div className="form-group">
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="Giá dịch vụ"
+                                        value={priceService}
+                                        onChange={(e) => setPriceService(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <button onClick={action === 'Thêm' ? addService : editService} className="btn btn-success">{action}</button>
+                        </div>
+                    </Modal>
 
+                    <table style={{ marginTop: 15 }} className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Stt</th>
+                                <th scope="col">Tên kiểu</th>
+                                <th scope="col">Chi tiết</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {listService.map((item, index) =>
+                                <tr>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{item.nameService}</td>
+                                    <td>{item.detailService}</td>
+                                    <td>{item.priceService} VNĐ</td>
+                                    <td>
+                                        <button onClick={() => openModalEdit('Sửa', item._id, item.nameService, item.detailService, item.priceService)} class="btn btn-primary">Sửa</button>
+                                        <button onClick={() => deleteService(item._id)} style={{ marginLeft: 10 }} class="btn btn-danger">Xóa</button>
+                                    </td>
+                                </tr>
+                            )}
+
+                        </tbody>
+                    </table>
+                </div>
+            }
         </div>
     )
 }
-export default SliderManager
+
+export default Service

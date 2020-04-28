@@ -107,7 +107,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
 function Admin(props) {
 
   const classes = useStyles();
@@ -119,6 +118,8 @@ function Admin(props) {
   const [colorSlider, setColorSilder] = useState('#3C3C3C')
   const [colorOder, setColorOder] = useState('#3C3C3C')
   const [colorInfo, setColorInfo] = useState('#3C3C3C')
+  const [colorBook, setColorBook] = useState('#3C3C3C')
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -142,10 +143,8 @@ function Admin(props) {
       .catch(err => {
         console.error(err);
         alert('Error logging in please try again');
-
       })
   }
-
 
   useEffect(() => {
     if (window.outerWidth <= 676) {
@@ -163,6 +162,8 @@ function Admin(props) {
       setColorProduct('#3C3C3C')
       setColorSilder('#3C3C3C')
       setColorOder('#3C3C3C')
+      setColorBook('#3C3C3C')
+
     }
     else if (props.location.hash === '#/managercalendarcut') {
       setColorContact('blue')
@@ -172,6 +173,7 @@ function Admin(props) {
       setColorSilder('#3C3C3C')
       setColorOder('#3C3C3C')
       setColorInfo('#3C3C3C')
+      setColorBook('#3C3C3C')
 
     } else if (props.location.hash === '#/managerMenber') {
       setColorContact('#3C3C3C')
@@ -181,7 +183,7 @@ function Admin(props) {
       setColorSilder('#3C3C3C')
       setColorOder('#3C3C3C')
       setColorInfo('#3C3C3C')
-
+      setColorBook('#3C3C3C')
 
     } else if (props.location.hash === '#/products') {
       setColorContact('#3C3C3C')
@@ -191,6 +193,7 @@ function Admin(props) {
       setColorSilder('#3C3C3C')
       setColorOder('#3C3C3C')
       setColorInfo('#3C3C3C')
+      setColorBook('#3C3C3C')
 
     }
     else if (props.location.hash === '#/service') {
@@ -201,6 +204,7 @@ function Admin(props) {
       setColorSilder('blue')
       setColorOder('#3C3C3C')
       setColorInfo('#3C3C3C')
+      setColorBook('#3C3C3C')
 
     }
     else if (props.location.hash === '#/oders') {
@@ -211,8 +215,10 @@ function Admin(props) {
       setColorSilder('#3C3C3C')
       setColorOder('blue')
       setColorInfo('#3C3C3C')
+      setColorBook('#3C3C3C')
+
     }
-    else if (props.location.hash === '#/updateinfomation') {
+    else if (props.location.hash === '#/notification') {
       setColorContact('#3C3C3C')
       setColorHome('#3C3C3C')
       setColorManagerStoreMenber('#3C3C3C')
@@ -220,6 +226,17 @@ function Admin(props) {
       setColorSilder('#3C3C3C')
       setColorOder('#3C3C3C')
       setColorInfo('blue')
+      setColorBook('#3C3C3C')
+    }
+    else if (props.location.hash === '#/managerbook') {
+      setColorContact('#3C3C3C')
+      setColorHome('#3C3C3C')
+      setColorManagerStoreMenber('#3C3C3C')
+      setColorProduct('#3C3C3C')
+      setColorSilder('#3C3C3C')
+      setColorOder('#3C3C3C')
+      setColorInfo('#3C3C3C')
+      setColorBook('blue')
     }
   }
 
@@ -241,7 +258,7 @@ function Admin(props) {
         <div>
           <div className={classes.root}>
             <CssBaseline />
-            <AppBar style={{ height: '8.8%',backgroundColor:'#ffcc33' }} position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+            <AppBar style={{ height: '8.8%', backgroundColor: '#ffcc33' }} position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
               <Toolbar className={classes.toolbar}>
                 <IconButton
                   edge="start"
@@ -277,7 +294,11 @@ function Admin(props) {
               <Divider />
               <List><MainListItems color={{
                 colorHome: colorHome, colorContact: colorContact,
-                colorProduct: colorProduct, colorManagerStoreMenber: colorManagerStoreMenber, colorSlider: colorSlider, colorOder: colorOder
+                colorProduct: colorProduct,
+                colorManagerStoreMenber: colorManagerStoreMenber,
+                colorSlider: colorSlider,
+                colorOder: colorOder,
+                colorInfo: colorInfo
               }} > </MainListItems></List>
               <Divider />
             </Drawer>
@@ -292,7 +313,7 @@ function Admin(props) {
                     <Route path='/products' render={(props) => <Products setColor={setColorRouter} />} />
                     <Route path='/oders' render={(props) => <Oders setColor={setColorRouter} />} />
                     <Route path='/service' render={(props) => <Slider setColor={setColorRouter} />} />
-                    <Route path='/updateinfomation' render={(props) => <UpdateInfomation setColor={setColorRouter} />} />
+                    <Route path='/notification' render={(props) => <UpdateInfomation setColor={setColorRouter} />} />
                   </Switch>
                 </div>
                 <Box style={{ marginTop: 15 }} pt={4}>

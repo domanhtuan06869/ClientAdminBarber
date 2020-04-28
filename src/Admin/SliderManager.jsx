@@ -21,6 +21,7 @@ const customStyles = {
         marginTop: '2%'
     }
 };
+
 function Service(props) {
 
     const [listService, setListService] = useState([])
@@ -92,14 +93,13 @@ function Service(props) {
 
     }
 
-    const openModalEdit = (action,id,name,detail,price) => {
+    const openModalEdit = (action, id, name, detail, price) => {
         openModal(action)
         setAction(action)
         setId(id)
         setNameService(name)
-        setDetailService(detail);
+        setDetailService(detail)
         setPriceService(price)
-
     }
 
     const deleteService = async (id) => {
@@ -110,7 +110,6 @@ function Service(props) {
             setListService(state => state.filter((item) => item._id != id))
         })
     }
-
 
     const checkValidate = () => {
         if (nameService === '' || detailService === '' || priceService === '') {
@@ -177,7 +176,6 @@ function Service(props) {
                             <button onClick={action === 'Thêm' ? addService : editService} className="btn btn-success">{action}</button>
                         </div>
                     </Modal>
-
                     <table style={{ marginTop: 15 }} className="table table-striped">
                         <thead>
                             <tr>
@@ -201,7 +199,6 @@ function Service(props) {
                                     </td>
                                 </tr>
                             )}
-
                         </tbody>
                     </table>
                 </div>

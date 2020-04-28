@@ -4,7 +4,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import PeopleIcon from '@material-ui/icons/People';
+import PeopleIcon from '@material-ui/icons/RingVolume';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
@@ -43,7 +43,16 @@ export const  MainListItems =({color})=> (
     <ListItemIcon>
       <LayersIcon htmlColor={color.colorContact}  lightingColor={color.colorContact} />
     </ListItemIcon>
-    <ListItemText primary="Quản lí khách đặt" />
+    <ListItemText primary="Quản lí lịch cắt" />
+  </ListItem>
+  </NavLink>
+
+  <NavLink style={{color:color.colorContact}} to='/managerbook'>
+  <ListItem button>
+    <ListItemIcon>
+      <LayersIcon htmlColor={color.colorContact}  lightingColor={color.colorContact} />
+    </ListItemIcon>
+    <ListItemText primary="Quản lí khách đặt lịch" />
   </ListItem>
   </NavLink>
 
@@ -72,6 +81,15 @@ export const  MainListItems =({color})=> (
         <LayersIcon htmlColor={color.colorSlider}  lightingColor={color.colorSlider} />
       </ListItemIcon>
       <ListItemText primary="Quản lí dịch vụ" />
+    </ListItem>
+    </NavLink>
+
+    <NavLink style={{color:color.colorInfo}} to='/notification'>
+    <ListItem button>
+      <ListItemIcon>
+        <PeopleIcon htmlColor={color.colorInfo}  lightingColor={color.colorInfo} />
+      </ListItemIcon>
+      <ListItemText primary="Thông báo" />
     </ListItem>
     </NavLink>
 </div>

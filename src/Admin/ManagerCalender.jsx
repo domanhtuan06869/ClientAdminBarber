@@ -133,51 +133,85 @@ function ManagerCalender(props) {
         }
       </div>
       <div>
-        {
-          loading == true ? < div className='loading' >
 
-            <BallBeat color={'#123abc'}
-              loading={loading} />
-          </div > :
-            <div ref={componentRef}>{
-              filterCalendar.map((item, index) =>
-                <div className="row border border-dark" key={item._id} style={{ marginTop: 5, backgroundColor: index % 2 == 0 ? '#ccc' : null }}>
-                  <div className="col-lg-3 border-right border-dark">
-                    <div>
-                      Họ tên: {item.name_menber}
-                    </div>
-                    <div>
-                      SĐT: {item.phone_menber_cut}
-                    </div>
-                  </div>
-                  <div className="col-lg-9">
-                    <div className="row border-bottom border-dark">
-                      <div style={styleCalendar(item.shift_1.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_1.isReady, 0)} className="col-lg-1.5 border-right border-dark"> {item.shift_1.time}</div>
-                      <div style={styleCalendar(item.shift_2.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_2.isReady, 1)} className="col-lg-1.5 border-right border-dark"> {item.shift_2.time}</div>
-                      <div style={styleCalendar(item.shift_3.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_3.isReady, 2)} className="col-lg-1.5 border-right border-dark"> {item.shift_3.time}</div>
-                      <div style={styleCalendar(item.shift_4.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_4.isReady, 3)} className="col-lg-1.5 border-right border-dark"> {item.shift_4.time}</div>
-                      <div style={styleCalendar(item.shift_5.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_5.isReady, 4)} className="col-lg-1.5 border-right border-dark"> {item.shift_5.time}</div>
-                      <div style={styleCalendar(item.shift_6.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_6.isReady, 5)} className="col-lg-1.5 border-right border-dark"> {item.shift_6.time}</div>
-                      <div style={styleCalendar(item.shift_7.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_7.isReady, 6)} className="col-lg-1.5 border-right border-dark"> {item.shift_7.time}</div>
-                      <div style={styleCalendar(item.shift_8.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_8.isReady, 7)} className="col-lg-1.5 border-right border-dark"> {item.shift_8.time}</div>
-                      <div style={styleCalendar(item.shift_9.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_9.isReady, 8)} className="col-lg-1.5 border-right border-dark"> {item.shift_9.time}</div>
-                    </div>
-                    <div className="row">
-                      <div style={styleCalendar(item.shift_10.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_10.isReady, 9)} className="col-lg-1.5 border-right border-dark"> {item.shift_10.time}</div>
-                      <div style={styleCalendar(item.shift_11.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_11.isReady, 10)} className="col-lg-1.5 border-right border-dark"> {item.shift_11.time}</div>
-                      <div style={styleCalendar(item.shift_12.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_12.isReady, 11)} className="col-lg-1.5 border-right border-dark"> {item.shift_12.time}</div>
-                      <div style={styleCalendar(item.shift_13.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_13.isReady, 12)} className="col-lg-1.5 border-right border-dark"> {item.shift_13.time}</div>
-                      <div style={styleCalendar(item.shift_14.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_14.isReady, 13)} className="col-lg-1.5 border-right border-dark"> {item.shift_14.time}</div>
-                      <div style={styleCalendar(item.shift_15.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_15.isReady, 14)} className="col-lg-1.5 border-right border-dark"> {item.shift_15.time}</div>
-                      <div style={styleCalendar(item.shift_16.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_16.isReady, 15)} className="col-lg-1.5 border-right border-dark"> {item.shift_16.time}</div>
-                      <div style={styleCalendar(item.shift_17.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_17.isReady, 16)} className="col-lg-1.5 border-right border-dark"> {item.shift_17.time}</div>
-                      <div style={styleCalendar(item.shift_18.isReady)} onClick={() => eventUpdateCalendarMenber(item, item.shift_18.isReady, 17)} className="col-lg-1.5 border-right border-dark"> {item.shift_18.time}</div>
-                    </div>
-                  </div>
-                </div>
-              )
-            }</div>
-        }
+        <div style={{marginTop:20}} className="row">
+          <div className="col-lg-1 border border-success">
+            8h
+          </div>
+          <div className="col-lg-1 border border-danger">
+            8h30
+          </div>
+          <div className="col-lg-1 border border-success">
+            9h
+          </div>
+          <div className="col-lg-1 border border-danger">
+            9h30
+          </div>
+          <div className="col-lg-1 border border-success">
+            10h
+          </div>
+          <div className="col-lg-1 border border-danger">
+            10h30
+          </div>
+          <div className="col-lg-1 border border-success">
+           11h
+          </div>
+          <div className="col-lg-1 border border-danger">
+            11h30
+          </div>
+          <div className="col-lg-1 border border-success">
+          12h
+          </div>
+          <div className="col-lg-1 border border-danger">
+            12h30
+          </div>
+          <div className="col-lg-1 border border-success">
+            13h
+          </div>
+          <div className="col-lg-1 border border-danger">
+            13h30
+          </div>
+          <div className="col-lg-1 border border-success">
+          14h
+          </div>
+          <div className="col-lg-1 border border-danger">
+          14h30
+          </div>
+          <div className="col-lg-1 border border-success">
+          15h
+          </div>
+          <div className="col-lg-1 border border-danger">
+            15h30
+          </div>
+          <div className="col-lg-1 border border-success">
+           16h
+          </div>
+          <div className="col-lg-1 border border-danger">
+            16h30
+          </div>
+          <div className="col-lg-1 border border-success">
+            17h
+          </div>
+          <div className="col-lg-1 border border-danger">
+            17h30
+          </div>
+          <div className="col-lg-1 border border-success">
+            18h
+          </div>
+          <div className="col-lg-1 border border-danger">
+            18h30
+          </div>
+          <div className="col-lg-1 border border-success">
+          19h
+          </div>
+          <div className="col-lg-1 border border-danger">
+            19h30
+          </div>
+          <div className="col-lg-1 border border-success">
+           20h
+          </div>
+        </div>
+
 
       </div>
     </div>

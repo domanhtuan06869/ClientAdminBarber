@@ -9,6 +9,7 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import InFoIcon from '@material-ui/icons/Info';
+import Iconseduche from '@material-ui/icons/CallReceivedOutlined';
 import Team from '@material-ui/icons/Person';
 
 import { NavLink} from "react-router-dom";
@@ -47,10 +48,10 @@ export const  MainListItems =({color})=> (
   </ListItem>
   </NavLink>
 
-  <NavLink style={{color:color.colorContact}} to='/managerbook'>
+  <NavLink style={{color:color.colorBook}} to='/managerbook'>
   <ListItem button>
     <ListItemIcon>
-      <LayersIcon htmlColor={color.colorContact}  lightingColor={color.colorContact} />
+      <Iconseduche htmlColor={color.colorBook}  lightingColor={color.colorBook} />
     </ListItemIcon>
     <ListItemText primary="Quản lí khách đặt lịch" />
   </ListItem>

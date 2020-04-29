@@ -9,6 +9,7 @@ import Chart from './Chart'
 import Slider from './SliderManager'
 import UpdateInfomation from './UpdateInfomation'
 import Oders from './Oders'
+import BookManager from './Seduche'
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -163,7 +164,6 @@ function Admin(props) {
       setColorSilder('#3C3C3C')
       setColorOder('#3C3C3C')
       setColorBook('#3C3C3C')
-
     }
     else if (props.location.hash === '#/managercalendarcut') {
       setColorContact('blue')
@@ -298,7 +298,8 @@ function Admin(props) {
                 colorManagerStoreMenber: colorManagerStoreMenber,
                 colorSlider: colorSlider,
                 colorOder: colorOder,
-                colorInfo: colorInfo
+                colorInfo: colorInfo,
+                colorBook:colorBook
               }} > </MainListItems></List>
               <Divider />
             </Drawer>
@@ -314,6 +315,7 @@ function Admin(props) {
                     <Route path='/oders' render={(props) => <Oders setColor={setColorRouter} />} />
                     <Route path='/service' render={(props) => <Slider setColor={setColorRouter} />} />
                     <Route path='/notification' render={(props) => <UpdateInfomation setColor={setColorRouter} />} />
+                    <Route path='/managerbook' render={(props) => <BookManager setColor={setColorRouter} />} />
                   </Switch>
                 </div>
                 <Box style={{ marginTop: 15 }} pt={4}>

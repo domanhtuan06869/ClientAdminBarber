@@ -1,30 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
-import Modal from 'react-modal';
-import Swal from "sweetalert2";
-import DeleteIcon from '@material-ui/icons/Delete';
-import ExportExcel from '../componentsAdmin/ExcelExport';
-import PrintOut from '../componentsAdmin/PrintOut';
 import { BallBeat } from 'react-pure-loaders';
 import callApi from '../controller/resapi'
 
-var dataSet2 = [
-  {
-    name: "Johnson",
-    total: 25,
-    remainig: 16
-  },
-  {
-    name: "Josef",
-    total: 25,
-    remainig: 7
-  }
-];
 function ManagerCalender(props) {
   const [loading, setLoading] = useState(false);
   const [selectStore, setSelectStore] = useState('');
-  const [calendarCut, setCalendarCut] = useState([]);
   const [find, setFind] = useState('')
   const [listCalender, setListCalender] = useState([])
   const [number, setNumber] = useState('1')
@@ -45,7 +27,6 @@ function ManagerCalender(props) {
     })
   }
 
-
   const handleChangeSelect = async text => {
     setLoading(true)
     setSelectStore(text.target.value)
@@ -53,29 +34,21 @@ function ManagerCalender(props) {
     const { data } = await axios(`https://api.tradenowvn.com/v1/other/haircut-getall?number=${number}&address=${name}`);
     setListCalender(data.data)
     setLoading(false)
-
   }
+
   useEffect(() => {
     getStore()
   }, [])
 
-  const componentRef = useRef();
+  useEffect(() => {
+    getCalender()
+  }, [number])
 
-  const updateCalendar = async (item) => {
-    const { data } = await axios('/getmanagercalendarcrate?id_store=' + item.id_store)
-    setListCalender(data)
-
-  }
-
-  async function eventUpdateCalendarMenber(item, isReady, index) {
-    callApi('post', '/updateCalendarMenber', {
-      id: item._id,
-      index: index,
-      isReady: isReady
-    }).then((res) => {
-      updateCalendar(item)
-    })
-
+  const getCalender = async () => {
+    setLoading(true)
+    const { data } = await axios(`https://api.tradenowvn.com/v1/other/haircut-getall?number=${number}&address=${selectStore}`);
+    setListCalender(data.data)
+    setLoading(false)
   }
 
   const confirmUpdate = async (id) => {
@@ -83,10 +56,7 @@ function ManagerCalender(props) {
     if (isCheck) {
       callApi('get', 'https://api.tradenowvn.com/v1/other/haircut-order?id=' + id, {
       }).then(async (res) => {
-        setLoading(true)
-        const { data } = await axios(`https://api.tradenowvn.com/v1/other/haircut-getall?number=${number}&address=${selectStore}`);
-        setListCalender(data.data)
-        setLoading(false)
+        getCalender()
       })
     } else {
     }
@@ -94,15 +64,7 @@ function ManagerCalender(props) {
 
   return (
     <div>
-      <div className="row">
-        <div className="col-lg-1.9">
-          <ExportExcel dataset={dataSet2}></ExportExcel>
-        </div>
-        <div className="col-lg-2">
-          <PrintOut refdata={componentRef}></PrintOut>
-        </div>
-      </div>
-      <div style={{ marginTop: 20 }} className="row">
+      <div style={{ marginTop: 20 }}  className="row">
         <div class="col-lg-3">
           <label className="mr-sm-2" for="SelectAdrress">Chi Nhánh</label>
           <select value={selectStore} onChange={handleChangeSelect} className="custom-select mr-sm-2" id="SelectAdrress">
@@ -135,7 +97,6 @@ function ManagerCalender(props) {
         }
       </div>
       <div>
-
         <div style={{ marginTop: 20 }} className="row">
           {listCalender.map((item) =>
             <div onClick={() => confirmUpdate(item.id)} className={`col-lg-1 border border-${item.exist ? 'success' : 'danger'}`}>
@@ -143,7 +104,6 @@ function ManagerCalender(props) {
             </div>
           )}
         </div>
-
 
       </div>
     </div>

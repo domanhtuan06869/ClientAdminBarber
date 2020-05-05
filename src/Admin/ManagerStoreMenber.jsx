@@ -1,18 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-
 import close from '../assets/image/close.png'
 import axios from 'axios'
 import Modal from 'react-modal';
-import { GetMenber, GetStore, AddMenberCut, AddAddressCut } from '../componentsAdmin/ModalManager'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { GetMenber, GetStore } from '../componentsAdmin/ModalManager'
 import callApi from '../controller/resapi'
 import customStyles from '../controller/custom_modal'
-import DeleteIcon from '@material-ui/icons/Delete';
 import { swal, swalErr } from '../controller/swal'
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 
 function ManagerStoreMenber(props) {
   const [loading, setLoading] = useState(true);
@@ -25,11 +19,6 @@ function ManagerStoreMenber(props) {
   const [listStoreMenber, setListStoreMenber] = useState('');
   const [nameMenber, setNameMenber] = useState('');
   const [ratingStylist, setRatingStylist] = useState('');
-  const [listDomMenber, setListDomMenber] = useState([])
-  const [listDomAddres, setListDomAddress] = useState([])
-
-  ////state time
-  const [time, setTime] = useState(new Date());
 
   const listStore = useSelector(state => state.reducerStore.data);
   const dispacth = useDispatch();
@@ -43,14 +32,6 @@ function ManagerStoreMenber(props) {
       setListStoreMenber(id);
       getMenber();
       setShowModal(true);
-    } else if ('AddMenber') {
-      setListStoreMenber(id);
-      getMenber();
-      setShowModal(true);
-    } else if ('Add Address') {
-      setListStoreMenber(id);
-      getStore();
-      setShowModal(true);
     }
   }
 
@@ -60,25 +41,26 @@ function ManagerStoreMenber(props) {
     }, 500)
   }
   const getStore = async () => {
-
     const { data } = await axios('/getStore')
     dispacth({
       type: 'FETCH_STORE',
       data: data
     })
-
   }
+
   const getMenber = async () => {
     const { data } = await axios('/getMenber')
     setListMenber(data)
   }
 
   const postMenber = async () => {
-    callApi('post', '/postMenber', { nameStylist: nameMenber, ratingStylist: ratingStylist }).then(() => {
-      setNameMenber('')
-      setRatingStylist('');
-      swal()
-    }).catch(() => swalErr())
+    if (!checkValidateMenber()) {
+      callApi('post', '/postMenber', { nameStylist: nameMenber, ratingStylist: ratingStylist }).then(() => {
+        setNameMenber('')
+        setRatingStylist('');
+        swal()
+      }).catch(() => swalErr())
+    }
   }
 
   useEffect(() => {
@@ -95,6 +77,15 @@ function ManagerStoreMenber(props) {
     }
   }
 
+  const checkValidateMenber = () => {
+    if (nameMenber === '' || ratingStylist === '') {
+      alert('Vui lòng nhập đủ các trường dữ liệu')
+      return true
+    } else {
+      return false
+    }
+  }
+
   const ReturnModal = () => {
     if (listStoreMenber === 'Store') {
       return (
@@ -103,14 +94,6 @@ function ManagerStoreMenber(props) {
     } else if (listStoreMenber === 'Menber') {
       return (
         <GetMenber data={listMenber} getNew={getMenber} />
-      )
-    } else if (listStoreMenber === 'AddMenber') {
-      return (
-        <AddMenberCut data={listMenber} setMenber={setListDomMenber} deleteMenber={setListMenber}></AddMenberCut>
-      )
-    } else if (listStoreMenber === 'Add Address') {
-      return (
-        <AddAddressCut data={listStore} setAddress={setListDomAddress}> </AddAddressCut>
       )
     }
   }
@@ -123,8 +106,9 @@ function ManagerStoreMenber(props) {
           districtLocation: districtLocation,
           addressLocation: addressLocation,
           districtDetailLocation: districtDetailLocation
-        }).then(() => {
+        }).then(async () => {
           getStore()
+          createCalender()
           setAddressLocation('');
           setCityLocation('');
           setDistrictLocation('')
@@ -132,6 +116,34 @@ function ManagerStoreMenber(props) {
           swal()
         }).catch(() => swalErr())
     }
+  }
+
+  const createCalender = async () => {
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=8h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=8h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=9h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=9h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=10h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=10h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=11h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=11h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=12h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=12h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=13h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=13h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=14h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=14h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=15h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=15h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=16h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=16h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=17h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=17h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=18h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=18h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=19h00&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=19h30&address=' + addressLocation)
+    await axios('https://api.tradenowvn.com/v1/other/haircut-add?time=20h00&address=' + addressLocation)
   }
 
   const HeaderModal = () => {
@@ -159,7 +171,6 @@ function ManagerStoreMenber(props) {
       </Modal>
       <div style={{ marginTop: 5 }} className="card card-body">
         <div className="row">
-
           <div className="col-lg-6">
             <div className="form-group">
               <label>Thêm chi nhánh</label>
@@ -170,7 +181,6 @@ function ManagerStoreMenber(props) {
                 value={cityLocation}
                 onChange={(e) => setCityLocation(e.target.value)}
               />
-
             </div>
             <div className="form-group">
               <input
@@ -180,7 +190,6 @@ function ManagerStoreMenber(props) {
                 value={districtLocation}
                 onChange={(e) => setDistrictLocation(e.target.value)}
               />
-
             </div>
             <div className="form-group">
               <input
@@ -200,7 +209,6 @@ function ManagerStoreMenber(props) {
                 onChange={(e) => setDistrictDetailLocation(e.target.value)}
               />
             </div>
-
             <button style={{ float: 'right', marginLeft: 15 }} onClick={() => openModal('Store')} className="btn btn-info">Xem</button>
             <button style={{ float: 'right' }}
               onClick={postStore}
@@ -215,7 +223,6 @@ function ManagerStoreMenber(props) {
                 placeholder="Tên thợ"
                 value={nameMenber}
                 onChange={(e) => setNameMenber(e.target.value)}
-
               />
             </div>
             <div className="form-group">
@@ -225,7 +232,6 @@ function ManagerStoreMenber(props) {
                 placeholder="Số sao"
                 value={ratingStylist}
                 onChange={(e) => setRatingStylist(e.target.value)}
-
               />
             </div>
             <button style={{ float: 'right', marginLeft: 15 }} onClick={() => openModal('Menber')} className="btn btn-info">Xem</button>

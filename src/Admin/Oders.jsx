@@ -6,18 +6,6 @@ import { BallBeat } from 'react-pure-loaders';
 import callApi from '../controller/resapi'
 import { swal, swalErr } from '../controller/swal'
 
-var dataSet2 = [
-    {
-        name: "Johnson",
-        total: 25,
-        remainig: 16
-    },
-    {
-        name: "Josef",
-        total: 25,
-        remainig: 7
-    }
-];
 function Oders(props) {
     const [loading, setLoading] = useState(false);
     const [selected, setSelect] = useState('0');

@@ -4,7 +4,6 @@ import 'react-quill/dist/quill.snow.css';
 import axios from 'axios'
 import Modal from 'react-modal';
 import callApi from '../controller/resapi'
-import IconButton from '@material-ui/core/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { swal, swalErr } from '../controller/swal'
@@ -23,6 +22,9 @@ const customStyles = {
         marginTop: '2%'
     }
 };
+
+
+
 function Products(props) {
     const [listProduct, setListProduct] = useState([])
     const [listTypeProduct, setListTypeProduct] = useState([])
@@ -142,7 +144,7 @@ function Products(props) {
             setListProduct(state => state.filter((item) => item._id != id))
         })
     }
-    
+
     const checkValidate = () => {
         if (name === '' || type === '' || image === '' || price === '' || description === '' || ratingProduct == '') {
             alert('vui lòng nhập đủ các trường dữ liệu')
@@ -152,7 +154,10 @@ function Products(props) {
         }
     }
 
-
+    let listType = listTypeProduct.map((item) => item.typeProduct)
+    let unique = listType.filter(function (item, pos, self) {
+        return self.indexOf(item) == pos;
+    })
     const ListType = () => {
         let list = listTypeProduct.map((item) => item.typeProduct)
         let uniqueArray = list.filter(function (item, pos, self) {
@@ -171,7 +176,6 @@ function Products(props) {
                 setLoading(false);
             }
         }
-
         return (
             <div style={{ marginTop: 20 }} className="row">
                 <div className="col-lg-3">
@@ -261,17 +265,15 @@ function Products(props) {
                             />
                         </div>
                     </div>
-                    <div>
-                        <label>Kiểu</label>
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Kiểu sản phẩm"
-                                value={type}
-                                onChange={(e) => setType(e.target.value)}
-                            />
-                        </div>
+                    <div className="form-group">
+                        <label className="mr-sm-2" htmlFor="SelectAdrress">Chọn theo thể loại</label>
+                        <select defaultValue="0" value={type} onChange={(e=>setType(e.target.value))} name="Chọn một trạng thái" className="custom-select mr-sm-2" id="SelectAdrress">
+                            <option value="0">Chọn một danh mục sản phẩm</option>
+                            {unique.map((item) =>
+                                <option value={item}>{item}</option>
+                            )}
+
+                        </select>
                     </div>
                     <div>
                         <label>Mô tả</label>

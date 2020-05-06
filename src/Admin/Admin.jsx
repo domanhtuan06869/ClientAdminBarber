@@ -26,7 +26,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import { MainListItems, SecondaryListItems } from './Listleft';
+import { MainListItems, UserList } from './Listleft';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -120,7 +120,7 @@ function Admin(props) {
   const [colorOder, setColorOder] = useState('#3C3C3C')
   const [colorInfo, setColorInfo] = useState('#3C3C3C')
   const [colorBook, setColorBook] = useState('#3C3C3C')
-
+  const [isRole, setRole] = useState(1)
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -129,7 +129,7 @@ function Admin(props) {
     setOpen(false);
   };
 
-  function logout() {
+  const logout = () => {
     fetch('/logout', {
       method: 'GET',
     })
@@ -155,7 +155,7 @@ function Admin(props) {
 
   }, [])
 
-  function setColorRouter() {
+  const setColorRouter = () => {
     if (props.location.hash === '#/') {
       setColorHome('blue')
       setColorContact('#3C3C3C')
@@ -299,9 +299,14 @@ function Admin(props) {
                 colorSlider: colorSlider,
                 colorOder: colorOder,
                 colorInfo: colorInfo,
-                colorBook:colorBook
-              }} > </MainListItems></List>
+                colorBook: colorBook
+              }} > </MainListItems>
+
+              </List>
               <Divider />
+              <List>
+                <UserList isRole={isRole} ></UserList>
+              </List>
             </Drawer>
             <main className={classes.content}>
               <div className={classes.appBarSpacer} />
@@ -316,6 +321,9 @@ function Admin(props) {
                     <Route path='/service' render={(props) => <Slider setColor={setColorRouter} />} />
                     <Route path='/notification' render={(props) => <UpdateInfomation setColor={setColorRouter} />} />
                     <Route path='/managerbook' render={(props) => <BookManager setColor={setColorRouter} />} />
+                    {isRole === 1 ?
+                      <Route path='/users' render={(props) => <Oders setColor={setColorRouter} />} /> : null
+                    }
                   </Switch>
                 </div>
                 <Box style={{ marginTop: 15 }} pt={4}>

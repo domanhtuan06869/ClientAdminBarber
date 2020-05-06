@@ -99,7 +99,7 @@ function ManagerCalender(props) {
       <div>
         <div style={{ marginTop: 20 }} className="row">
           {listCalender.map((item) =>
-            <div onClick={() => confirmUpdate(item.id)} className={`col-lg-1 border border-${item.exist ? 'success' : 'danger'}`}>
+            <div style={{cursor:'pointer'}} onClick={() => confirmUpdate(item.id)} className={`col-lg-1 border border-${item.exist ? 'success' : 'danger'}`}>
               {item.time}
             </div>
           )}

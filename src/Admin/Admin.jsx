@@ -10,6 +10,8 @@ import Slider from './SliderManager'
 import UpdateInfomation from './UpdateInfomation'
 import Oders from './Oders'
 import BookManager from './Seduche'
+import Users from './Users'
+import axios from 'axios'
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -120,7 +122,7 @@ function Admin(props) {
   const [colorOder, setColorOder] = useState('#3C3C3C')
   const [colorInfo, setColorInfo] = useState('#3C3C3C')
   const [colorBook, setColorBook] = useState('#3C3C3C')
-  const [isRole, setRole] = useState(1)
+  const [userColor, setColorUser] = useState('#3C3C3C')
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -143,7 +145,7 @@ function Admin(props) {
       })
       .catch(err => {
         console.error(err);
-        alert('Error logging in please try again');
+        //  alert('Error logging in please try again');
       })
   }
 
@@ -152,92 +154,21 @@ function Admin(props) {
       setOpen(false)
     }
     setColorRouter()
-
+    if(props.location.hash ===''){
+      setColorHome('blue')
+    }
   }, [])
 
   const setColorRouter = () => {
-    if (props.location.hash === '#/') {
-      setColorHome('blue')
-      setColorContact('#3C3C3C')
-      setColorManagerStoreMenber('#3C3C3C')
-      setColorProduct('#3C3C3C')
-      setColorSilder('#3C3C3C')
-      setColorOder('#3C3C3C')
-      setColorBook('#3C3C3C')
-    }
-    else if (props.location.hash === '#/managercalendarcut') {
-      setColorContact('blue')
-      setColorHome('#3C3C3C')
-      setColorManagerStoreMenber('#3C3C3C')
-      setColorProduct('#3C3C3C')
-      setColorSilder('#3C3C3C')
-      setColorOder('#3C3C3C')
-      setColorInfo('#3C3C3C')
-      setColorBook('#3C3C3C')
-
-    } else if (props.location.hash === '#/managerMenber') {
-      setColorContact('#3C3C3C')
-      setColorHome('#3C3C3C')
-      setColorManagerStoreMenber('blue')
-      setColorProduct('#3C3C3C')
-      setColorSilder('#3C3C3C')
-      setColorOder('#3C3C3C')
-      setColorInfo('#3C3C3C')
-      setColorBook('#3C3C3C')
-
-    } else if (props.location.hash === '#/products') {
-      setColorContact('#3C3C3C')
-      setColorHome('#3C3C3C')
-      setColorManagerStoreMenber('#3C3C3C')
-      setColorProduct('blue')
-      setColorSilder('#3C3C3C')
-      setColorOder('#3C3C3C')
-      setColorInfo('#3C3C3C')
-      setColorBook('#3C3C3C')
-
-    }
-    else if (props.location.hash === '#/service') {
-      setColorContact('#3C3C3C')
-      setColorHome('#3C3C3C')
-      setColorManagerStoreMenber('#3C3C3C')
-      setColorProduct('#3C3C3C')
-      setColorSilder('blue')
-      setColorOder('#3C3C3C')
-      setColorInfo('#3C3C3C')
-      setColorBook('#3C3C3C')
-
-    }
-    else if (props.location.hash === '#/oders') {
-      setColorContact('#3C3C3C')
-      setColorHome('#3C3C3C')
-      setColorManagerStoreMenber('#3C3C3C')
-      setColorProduct('#3C3C3C')
-      setColorSilder('#3C3C3C')
-      setColorOder('blue')
-      setColorInfo('#3C3C3C')
-      setColorBook('#3C3C3C')
-
-    }
-    else if (props.location.hash === '#/notification') {
-      setColorContact('#3C3C3C')
-      setColorHome('#3C3C3C')
-      setColorManagerStoreMenber('#3C3C3C')
-      setColorProduct('#3C3C3C')
-      setColorSilder('#3C3C3C')
-      setColorOder('#3C3C3C')
-      setColorInfo('blue')
-      setColorBook('#3C3C3C')
-    }
-    else if (props.location.hash === '#/managerbook') {
-      setColorContact('#3C3C3C')
-      setColorHome('#3C3C3C')
-      setColorManagerStoreMenber('#3C3C3C')
-      setColorProduct('#3C3C3C')
-      setColorSilder('#3C3C3C')
-      setColorOder('#3C3C3C')
-      setColorInfo('#3C3C3C')
-      setColorBook('blue')
-    }
+    setColorUser(props.location.hash === '#/users' ? 'blue' : '#3C3C3C');
+    setColorHome(props.location.hash === '#/' ? 'blue' : '#3C3C3C');
+    setColorContact(props.location.hash === '#/managercalendarcut' ? 'blue' : '#3C3C3C')
+    setColorManagerStoreMenber(props.location.hash === '#/managerMenber' ? 'blue' : '#3C3C3C')
+    setColorSilder(props.location.hash === '#/service' ? 'blue' : '#3C3C3C')
+    setColorProduct(props.location.hash === '#/products' ? 'blue' : '#3C3C3C')
+    setColorOder(props.location.hash === '#/oders' ? 'blue' : '#3C3C3C')
+    setColorInfo(props.location.hash === '#/notification' ? 'blue' : '#3C3C3C')
+    setColorBook(props.location.hash === '#/managerbook' ? 'blue' : '#3C3C3C')
   }
 
   function Copyright() {
@@ -305,7 +236,7 @@ function Admin(props) {
               </List>
               <Divider />
               <List>
-                <UserList isRole={isRole} ></UserList>
+                <UserList colorUser={userColor} ></UserList>
               </List>
             </Drawer>
             <main className={classes.content}>
@@ -321,9 +252,7 @@ function Admin(props) {
                     <Route path='/service' render={(props) => <Slider setColor={setColorRouter} />} />
                     <Route path='/notification' render={(props) => <UpdateInfomation setColor={setColorRouter} />} />
                     <Route path='/managerbook' render={(props) => <BookManager setColor={setColorRouter} />} />
-                    {isRole === 1 ?
-                      <Route path='/users' render={(props) => <Oders setColor={setColorRouter} />} /> : null
-                    }
+                    <Route path='/users' render={(props) => <Users setColor={setColorRouter} />} /> : null
                   </Switch>
                 </div>
                 <Box style={{ marginTop: 15 }} pt={4}>

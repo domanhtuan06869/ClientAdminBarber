@@ -27,9 +27,6 @@ export const MainListItems = ({ color }) => (
         <ListItemText primary="Quản lí style" />
       </ListItem>
     </NavLink>
-
-
-
     <NavLink style={{ color: color.colorManagerStoreMenber }} to='/managerMenber'>
       <ListItem button>
         <ListItemIcon>
@@ -99,20 +96,18 @@ export const MainListItems = ({ color }) => (
 
 
 
-export const UserList = ({ isRole }) => (
+export const UserList = ({ colorUser}) => (
   <div>
-    {isRole === 1 ?
-      <NavLink to='/users'>
+ 
+      <NavLink style={{ color: colorUser }}  to='/users'>
         <ListItem button>
           <ListItemIcon>
-            <InFoIcon />
+            <InFoIcon  htmlColor={colorUser} lightingColor={colorUser}/>
           </ListItemIcon>
           <ListItemText primary="Quản lí tài khoản" />
         </ListItem>
       </NavLink>
-      :
-      null
-    }
+
   </div>
 )
 

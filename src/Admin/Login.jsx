@@ -28,6 +28,7 @@ export default class Login extends Component {
       if (res.status === 200) {
        localStorage.setItem('email',this.state.email)
         this.props.history.push('/admin');
+        localStorage.setItem('email',this.state.email)
       } else {
         const error = new Error(res.error);
         throw error;
@@ -42,19 +43,19 @@ export default class Login extends Component {
     return (
       
      
-      <div class="row mt-5">
-      <div class="col-md-6 m-auto">
-        <div class="card card-body">
-          <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  Login</h1>
+      <div className="row mt-5">
+      <div className="col-md-6 m-auto">
+        <div className="card card-body">
+          <h1 className="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  Login</h1>
          
           <form onSubmit={this.onSubmit}>
-            <div class="form-group">
+            <div className="form-group">
               <label for="email">Email</label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                class="form-control"
+                className="form-control"
                 placeholder="Email"
                 value={this.state.email}
                 onChange={this.handleInputChange}
@@ -66,15 +67,16 @@ export default class Login extends Component {
                 type="password"
                 id="password"
                 name="password"
-                class="form-control"
+                className="form-control"
                 placeholder="Mật khẩu"
                 value={this.state.password}
                 onChange={this.handleInputChange}
               />
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+            <button type="submit" className="btn btn-primary btn-block">Đăng nhập</button>
+            <p onClick={()=>  this.props.history.push('/signup')} style={{textAlign:'center' , cursor:'pointer',color:'blue',marginTop:20}}>Đăng kí</p>
+
           </form>
-        
         </div>
       </div>
     </div>

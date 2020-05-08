@@ -1,204 +1,140 @@
 import React, { useRef, useState, useEffect } from 'react'
-import close from '../assets/image/close.png'
 import axios from 'axios'
-import Modal from 'react-modal';
-import { BallBeat } from 'react-pure-loaders';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { BallBeat } from 'react-pure-loaders'
 import callApi from '../controller/resapi'
 import { swal, swalErr } from '../controller/swal'
+import { useDispatch, useSelector } from "react-redux"
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        opacity: '80%',
-        background: '#ffcc33',
-        marginTop: '2%'
-    }
-};
+function Schedule(props) {
 
-function Service(props) {
-
-    const [listService, setListService] = useState([])
-    const [showModal, setShowModal] = useState(false)
-    const [action, setAction] = useState('')
-    const [nameService, setNameService] = useState('')
-    const [detailService, setDetailService] = useState('')
-    const [priceService, setPriceService] = useState('')
-    const [id, setId] = useState('')
+    const [listSchedule, setListSchedule] = useState([])
     const [loading, setLoading] = useState(false);
+    const [selectStore, setSelectStore] = useState('');
+
+
+    const listStore = useSelector(state => state.reducerStore.data);
+    const dispacth = useDispatch();
 
     useEffect(() => {
-        getService()
+        getStore()
         props.setColor()
     }, [])
-    async function getService() {
-        setLoading(true)
-        const result = await axios('/getService')
-        setListService(result.data)
-        setLoading(false);
-    }
 
-    function openModal(action) {
-        if (action === 'Thêm') {
-            setAction('Thêm')
-            setShowModal(true)
-        } else {
-            setAction('Sửa')
-            setShowModal(true)
-        }
-    }
-
-    function closeModal() {
-        setShowModal(false)
-        setTimeout(() => {
-            setAction('')
-            setShowModal('')
-        }, 300)
-
-    }
-
-    const addService = async () => {
-        if (!checkValidate()) {
-            callApi('post', '/postService', {
-                nameService: nameService,
-                detailService: detailService,
-                priceService: priceService,
-            }).then(() => {
-                swal()
-                closeModal()
-                getService()
-            })
-        }
-    }
-
-    const editService = async () => {
-        if (!checkValidate()) {
-            callApi('post', '/updateService', {
-                id: id,
-                nameService: nameService,
-                detailService: detailService,
-                priceService: priceService,
-            }).then(() => {
-                swal()
-                closeModal()
-                getService()
-            })
-        }
-
-    }
-
-    const openModalEdit = (action, id, name, detail, price) => {
-        openModal(action)
-        setAction(action)
-        setId(id)
-        setNameService(name)
-        setDetailService(detail)
-        setPriceService(price)
-    }
-
-    const deleteService = async (id) => {
-        callApi('delete', '/deleteService', {
-            id: id,
-        }).then(() => {
-            swal()
-            setListService(state => state.filter((item) => item._id != id))
+    async function getStore() {
+        const { data } = await axios('/getStore')
+        dispacth({
+            type: 'FETCH_STORE',
+            data: data
         })
     }
 
-    const checkValidate = () => {
-        if (nameService === '' || detailService === '' || priceService === '') {
-            alert('Vui lòng nhập đủ các trường dữ liệu')
-            return true;
-        } else {
-            return false;
-        }
+    async function getSchedule(address) {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let day = date.getDate();
+        let today = `${day}/${month + 1}/${(year)}`
+        setLoading(true)
+        const result = await axios(`/getSchedules?dateBook=${today}&address=${address === undefined ? selectStore : address}`)
+        setListSchedule(result.data)
+        setLoading(false);
     }
+
+    async function getScheduleLast() {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let day = date.getDate();
+        let todaylast = `${day + 1}/${month + 1}/${(year)}`
+        setLoading(true)
+        const result = await axios(`/getSchedules?dateBook=${todaylast}&address=${selectStore}`)
+        setListSchedule(result.data)
+        setLoading(false);
+    }
+    const todatDate = () => {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let day = date.getDate();
+        let today = `${day}/${month + 1}/${(year)}`
+        return today
+    }
+
+    const updateSchedule = async (id) => {
+        callApi('post', '/updateSchedule', {
+            id: id,
+        }).then(() => {
+            swal()
+            getSchedule()
+        }).catch(() => swalErr())
+    }
+
+    const updateScheduleLast = async (id) => {
+        callApi('post', '/updateSchedule', {
+            id: id,
+        }).then(() => {
+            swal()
+            getScheduleLast()
+        }).catch(() => swalErr())
+    }
+
+
+    const handleChangeSelect = async text => {
+        setLoading(true)
+        setSelectStore(text.target.value)
+        const name = text.target.value
+        getSchedule(name)
+        setLoading(false)
+    }
+
 
     return (
         <div>
-            <button onClick={() => openModal('Thêm')} style={{}} type="button" className="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Create New</button>
             {loading ? < div className='loading' >
                 <BallBeat color={'#123abc'}
                     loading={loading} />
             </div > :
                 <div>
-                    <Modal
-                        closeTimeoutMS={500}
-                        isOpen={showModal}
-                        onRequestClose={closeModal}
-                        style={customStyles}
-                        contentLabel="Example Modal">
-                        <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
-                        <h2> {action}</h2>
-                        <div>
-                            <div>
-                                <label>Tên dịch vụ</label>
-                                <div className="form-group">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Tên dịch vụ"
-                                        value={nameService}
-                                        onChange={(e) => setNameService(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label>Chi tiết dịch vụ</label>
-                                <div className="form-group">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Chi tiết dịch vụ"
-                                        value={detailService}
-                                        onChange={(e) => setDetailService(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label>Giá dịch vụ</label>
-                                <div className="form-group">
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        placeholder="Giá dịch vụ"
-                                        value={priceService}
-                                        onChange={(e) => setPriceService(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <button onClick={action === 'Thêm' ? addService : editService} className="btn btn-success">{action}</button>
+                    <div style={{ marginTop: 20 }} className="row">
+                        <div class="col-lg-3">
+                            <label className="mr-sm-2" for="SelectAdrress">Chi Nhánh</label>
+                            <select value={selectStore} onChange={handleChangeSelect} className="custom-select mr-sm-2" id="SelectAdrress">
+                                <option selected>Chọn một chi nhánh</option>
+                                {listStore.map((item) => (
+                                    <option key={item._id} value={item.addressLocation}>{item.addressLocation}</option>
+                                ))}
+                            </select>
                         </div>
-                    </Modal>
+                        <div style={{ marginTop: 26 }} className="col-lg-1.6">
+                            <button onClick={() => getSchedule()} className="btn btn-info mt-20">Hôm nay</button>
+                        </div>
+                        <div style={{ marginTop: 26, marginLeft: 5 }} className="col-lg-1.6">
+                            <button onClick={() => getScheduleLast()} className="btn btn-info mt-20">Ngày mai</button>
+                        </div>
+                    </div>
                     <table style={{ marginTop: 15 }} className="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">Stt</th>
-                                <th scope="col">Tên khách</th>
-                                <th scope="col">Combo kiểu</th>
-                                <th scope="col">SĐT</th>
+                                <th scope="col">Cơ sở</th>
                                 <th scope="col">Thời gian</th>
+                                <th scope="col">Thợ</th>
+                                <th scope="col">Dịch vụ chọn</th>
+                                <th scope="col">Trạng thái cắt</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {listService.map((item, index) =>
+                            {listSchedule.map((item, index) =>
                                 <tr>
                                     <th scope="row">{index + 1}</th>
-                                    <td>HUY ANH</td>
-                                    <td>{item.detailService}</td>
-                                    <td>0978678760</td>
-                                    <td>8h30</td>
-                                    <td>
-                                        <button onClick={() => openModalEdit('Sửa', item._id, item.nameService, item.detailService, item.priceService)} class="btn btn-primary">Sửa</button>
-                                        <button onClick={() => deleteService(item._id)} style={{ marginLeft: 10 }} class="btn btn-danger">Xóa</button>
-                                    </td>
+                                    <td>{item.locationSchedule}</td>
+                                    <td>{item.timeSchedule}</td>
+                                    <td>{item.stylistSchedule}</td>
+                                    <td>{item.serviceSchedule}</td>
+                                    <td>{item.statusSchedule === 'true' ? 'Đã cắt' : 'Chưa căt'}</td>
+                                    {item.statusSchedule === 'true' ? null : <button onClick={() => todatDate() === item.dateSchedule ? updateSchedule(item._id) : updateScheduleLast(item._id)} className="btn btn-info mt-20">Xác nhận cắt</button>}
+
                                 </tr>
                             )}
                         </tbody>
@@ -209,4 +145,4 @@ function Service(props) {
     )
 }
 
-export default Service
+export default Schedule

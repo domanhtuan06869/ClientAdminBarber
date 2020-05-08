@@ -9,6 +9,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import thunk from "redux-thunk";
 import reducer from '../src/combinereducers/combineReducers'
 import registerServiceWorker, { unregister } from '../src/Admin/registerServiceWorker';
+import "react-app-polyfill/ie9"
+import "react-app-polyfill/ie11"
+import "react-app-polyfill/stable"
+import 'raf/polyfill';
 const store = createStore(reducer, applyMiddleware(thunk));
 ReactDOM.render(<Provider store={store}>
   <App />

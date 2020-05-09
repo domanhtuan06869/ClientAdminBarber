@@ -82,6 +82,15 @@ export const MainListItems = ({ color }) => (
       </ListItem>
     </NavLink>
 
+    <NavLink style={{ color: color.colorHistory}} to='/history'>
+      <ListItem button>
+        <ListItemIcon>
+          <LayersIcon htmlColor={color.colorHistory} lightingColor={color.colorHistory} />
+        </ListItemIcon>
+        <ListItemText primary="Lịch sử khách cắt" />
+      </ListItem>
+    </NavLink>
+
     <NavLink style={{ color: color.colorInfo }} to='/notification'>
       <ListItem button>
         <ListItemIcon>

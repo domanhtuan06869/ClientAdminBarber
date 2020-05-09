@@ -132,8 +132,8 @@ function Schedule(props) {
                                     <td>{item.timeSchedule}</td>
                                     <td>{item.stylistSchedule}</td>
                                     <td>{item.serviceSchedule}</td>
-                                    <td>{item.statusSchedule === 'true' ? 'Đã cắt' : 'Chưa căt'}</td>
-                                    {item.statusSchedule === 'true' ? null : <button onClick={() => todatDate() === item.dateSchedule ? updateSchedule(item._id) : updateScheduleLast(item._id)} className="btn btn-info mt-20">Xác nhận cắt</button>}
+                                    <td>{item.statusSchedule ===true ? 'Đã cắt' : 'Chưa căt'}</td>
+                                    {item.statusSchedule ? null : <button onClick={() => todatDate() === item.dateSchedule ? updateSchedule(item._id) : updateScheduleLast(item._id)} className="btn btn-info mt-20">Xác nhận cắt</button>}
 
                                 </tr>
                             )}

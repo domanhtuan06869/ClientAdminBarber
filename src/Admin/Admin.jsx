@@ -11,6 +11,9 @@ import UpdateInfomation from './UpdateInfomation'
 import Oders from './Oders'
 import BookManager from './Seduche'
 import Users from './Users'
+import History from './History'
+
+
 import axios from 'axios'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -123,6 +126,7 @@ function Admin(props) {
   const [colorInfo, setColorInfo] = useState('#3C3C3C')
   const [colorBook, setColorBook] = useState('#3C3C3C')
   const [userColor, setColorUser] = useState('#3C3C3C')
+  const [colorHistory, setColorHistory] = useState('#3C3C3C')
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -169,6 +173,7 @@ function Admin(props) {
     setColorOder(props.location.hash === '#/oders' ? 'blue' : '#3C3C3C')
     setColorInfo(props.location.hash === '#/notification' ? 'blue' : '#3C3C3C')
     setColorBook(props.location.hash === '#/managerbook' ? 'blue' : '#3C3C3C')
+    setColorHistory(props.location.hash === '#/history' ? 'blue' : '#3C3C3C')
   }
 
   function Copyright() {
@@ -230,7 +235,8 @@ function Admin(props) {
                 colorSlider: colorSlider,
                 colorOder: colorOder,
                 colorInfo: colorInfo,
-                colorBook: colorBook
+                colorBook: colorBook,
+                colorHistory:colorHistory
               }} > </MainListItems>
 
               </List>
@@ -252,7 +258,8 @@ function Admin(props) {
                     <Route path='/service' render={(props) => <Slider setColor={setColorRouter} />} />
                     <Route path='/notification' render={(props) => <UpdateInfomation setColor={setColorRouter} />} />
                     <Route path='/managerbook' render={(props) => <BookManager setColor={setColorRouter} />} />
-                    <Route path='/users' render={(props) => <Users setColor={setColorRouter} />} /> : null
+                    <Route path='/users' render={(props) => <Users setColor={setColorRouter} />} /> 
+                    <Route path='/history' render={(props) => <History setColor={setColorRouter} />} />                   
                   </Switch>
                 </div>
                 <Box style={{ marginTop: 15 }} pt={4}>

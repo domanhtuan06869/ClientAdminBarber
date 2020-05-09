@@ -204,7 +204,7 @@ function Products(props) {
                         {listProduct.map((item) =>
                             <div style={{ marginTop: 10 }} className="col-lg-3">
                                 <div class="card">
-                                    <img style={{ height: 200 }} className="card-img-top img-fluid img-thumbnail" src={item.imageProduct} alt="Card image cap" />
+                                    <img style={{ height: 250 }} className="card-img-top img-fluid img-thumbnail" src={item.imageProduct} alt="Card image cap" />
                                     <div className="card-body">
                                         <h5 className="card-title">{item.typeProduct}</h5>
                                         <p style={{ fontWeight: 'bold' }} class="card-text">{item.priceProduct} đ</p>

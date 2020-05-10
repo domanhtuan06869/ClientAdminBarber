@@ -35,7 +35,7 @@ function Users(props) {
     }
 
     const updateUser = async (id, role) => {
-        callApi('post', '/updateUser', { id: id, role: role }).then(() => {
+        callApi('post', '/updateUsers', { id: id, role: role }).then(() => {
             swal()
             getUsers()
         }).catch(() => swalErr())

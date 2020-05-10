@@ -11,15 +11,16 @@ import { BallBeat } from 'react-pure-loaders';
 
 const customStyles = {
     content: {
-        top: '50%',
+        top: '45%',
         left: '50%',
         right: 'auto',
-        bottom: 'auto',
+        height:'80%',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         opacity: '80%',
         background: '#ffcc33',
-        marginTop: '2%'
+        marginTop: '5%',
+        marginBotttom: '7%'
     }
 };
 
@@ -37,6 +38,7 @@ function Products(props) {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('')
     const [ratingProduct, setRatingProduct] = useState('')
+    const [amountProduct, setAmountProduct] = useState('')
     const [selected, setSelected] = useState('0')
     const [loading, setLoading] = useState(false);
 
@@ -58,7 +60,7 @@ function Products(props) {
         setShowModal(true)
     }
 
-    const openModalEdit = (action, id, price, name, des, type, img, rat) => {
+    const openModalEdit = (action, id, price, name, des, type, img, rat, am) => {
         openModal(action)
         setAction(action)
         setImage(img)
@@ -68,6 +70,7 @@ function Products(props) {
         setType(type)
         setName(name)
         setRatingProduct(rat)
+        setAmountProduct(am)
     }
     function closeModal() {
         setShowModal(false)
@@ -79,6 +82,7 @@ function Products(props) {
             setType('')
             setName('')
             setRatingProduct('')
+            setAmountProduct('')
         }, 500)
 
     }
@@ -108,7 +112,8 @@ function Products(props) {
                 priceProduct: price,
                 typeProduct: type,
                 descriptionProduct: description,
-                ratingProduct: ratingProduct
+                ratingProduct: ratingProduct,
+                amountProduct: amountProduct
             }).then(() => {
                 swal()
                 closeModal()
@@ -126,7 +131,8 @@ function Products(props) {
                 priceProduct: price,
                 typeProduct: type,
                 descriptionProduct: description,
-                ratingProduct: ratingProduct
+                ratingProduct: ratingProduct,
+                amountProduct: amountProduct
             }).then(() => {
                 swal()
                 closeModal()
@@ -146,7 +152,7 @@ function Products(props) {
     }
 
     const checkValidate = () => {
-        if (name === '' || type === '' || image === '' || price === '' || description === '' || ratingProduct == '') {
+        if (name === '' || type === '' || image === '' || price === '' || description === '' || ratingProduct === ''|| amountProduct === '') {
             alert('vui lòng nhập đủ các trường dữ liệu')
             return true;
         } else {
@@ -161,7 +167,7 @@ function Products(props) {
     const ListType = () => {
         let list = listTypeProduct.map((item) => item.typeProduct)
         let uniqueArray = list.filter(function (item, pos, self) {
-            return self.indexOf(item) == pos;
+            return self.indexOf(item) === pos;
         })
 
         const handleChangeSelect = async text => {
@@ -206,10 +212,11 @@ function Products(props) {
                                 <div class="card">
                                     <img style={{ height: 250 }} className="card-img-top img-fluid img-thumbnail" src={item.imageProduct} alt="Card image cap" />
                                     <div className="card-body">
-                                        <p style={{ fontWeight: 'bold', marginBottom: 0  }} >{item.nameProduct}</p>
+                                        <p style={{ fontWeight: 'bold', marginBottom: 0 }} >{item.nameProduct}</p>
                                         <p style={{ color: 'red', fontWeight: "bold", marginTop: 0, marginBottom: 0 }} >{item.priceProduct} đ</p>
                                         <h5>{item.typeProduct}</h5>
-                                        <button onClick={() => openModalEdit('Sửa', item._id, item.priceProduct, item.nameProduct, item.descriptionProduct, item.typeProduct, item.imageProduct, item.ratingProduct)} class="btn btn-primary">Sửa</button>
+                                        <p style={{ marginTop:0, marginBottom: 0 }}> Số lượng {item.amountProduct}</p>
+                                        <button onClick={() => openModalEdit('Sửa', item._id, item.priceProduct, item.nameProduct, item.descriptionProduct, item.typeProduct, item.imageProduct, item.ratingProduct, item.amountProduct)} class="btn btn-primary">Sửa</button>
                                         <button onClick={() => deleteProduct(item._id)} style={{ marginLeft: 10 }} class="btn btn-danger">Xóa</button>
                                     </div>
                                 </div>
@@ -264,6 +271,18 @@ function Products(props) {
                             />
                         </div>
                     </div>
+                    <div>
+                        <label>Số lượng</label>
+                        <div className="form-group">
+                            <input
+                                type="number"
+                                className="form-control"
+                                placeholder="Số lượng"
+                                value={amountProduct}
+                                onChange={(e) => setAmountProduct(e.target.value)}
+                            />
+                        </div>
+                    </div>
                     <div className="form-group">
                         <label className="mr-sm-2" htmlFor="SelectAdrress">Chọn theo thể loại</label>
                         <select defaultValue="0" value={type} onChange={(e => setType(e.target.value))} name="Chọn một trạng thái" className="custom-select mr-sm-2" id="SelectAdrress">
@@ -291,6 +310,8 @@ function Products(props) {
                         <div className="form-group">
                             <input
                                 type="number"
+                                min="0"
+                                max="5"
                                 className="form-control"
                                 placeholder="Đánh giá sao"
                                 value={ratingProduct}

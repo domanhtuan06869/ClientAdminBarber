@@ -11,15 +11,18 @@ function Pushnotification(props) {
     }, [])
 
 
-    const  pushNotify = async (id) => {
-        callApi('post', '/pusher', {
-            title: title,
-            content: content
-        }).then(() => {
-            swal()
-            setTitle('')
-            setContent('')
-        }).catch(() => swalErr())
+    const pushNotify = async (id) => {
+        if (title === '' || content === ''){
+            alert("Vui lòng nhập đủ trường dữ liệu")
+        }
+            callApi('post', '/pusher', {
+                title: title,
+                content: content
+            }).then(() => {
+                swal()
+                setTitle('')
+                setContent('')
+            }).catch(() => swalErr())
     }
 
 

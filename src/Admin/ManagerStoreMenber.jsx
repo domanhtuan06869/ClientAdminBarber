@@ -241,6 +241,8 @@ function ManagerStoreMenber(props) {
                 className="form-control"
                 placeholder="Số sao"
                 value={ratingStylist}
+                min="0"
+                max="5"
                 onChange={(e) => setRatingStylist(e.target.value)}
               />
             </div>

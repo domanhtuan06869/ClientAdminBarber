@@ -64,7 +64,7 @@ function ManagerCalender(props) {
 
   return (
     <div>
-      <div style={{ marginTop: 20 }}  className="row">
+      <div style={{ marginTop: 20 }} className="row">
         <div class="col-lg-3">
           <label className="mr-sm-2" for="SelectAdrress">Chi Nhánh</label>
           <select value={selectStore} onChange={handleChangeSelect} className="custom-select mr-sm-2" id="SelectAdrress">
@@ -99,7 +99,8 @@ function ManagerCalender(props) {
       <div>
         <div style={{ marginTop: 20 }} className="row">
           {listCalender.map((item) =>
-            <div style={{cursor:'pointer'}} onClick={() => confirmUpdate(item.id)} className={`col-lg-1 border border-${item.exist ? 'success' : 'danger'}`}>
+            <div
+              style={{ cursor: 'pointer', margin:3,borderWidth:2, borderColor:item.exist ?'#0BA313':'red', borderStyle:'solid'}} onClick={() => confirmUpdate(item.id)} className={`col-lg-1`}>
               {item.time}
             </div>
           )}

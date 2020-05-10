@@ -115,9 +115,10 @@ function Schedule(props) {
                     <table style={{ marginTop: 15 }} className="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Stt</th>
+                                <th scope="col">STT</th>
                                 <th scope="col">Cơ sở</th>
                                 <th scope="col">Thời gian</th>
+                                <th scope="col">SĐT khách hàng</th>
                                 <th scope="col">Thợ</th>
                                 <th scope="col">Dịch vụ chọn</th>
                                 <th scope="col">Trạng thái cắt</th>
@@ -130,6 +131,7 @@ function Schedule(props) {
                                     <th scope="row">{index + 1}</th>
                                     <td>{item.locationSchedule}</td>
                                     <td>{item.timeSchedule}</td>
+                                    <td>{item.phoneSchedule}</td>
                                     <td>{item.stylistSchedule}</td>
                                     <td>{item.serviceSchedule}</td>
                                     <td>{item.statusSchedule ===true ? 'Đã cắt' : 'Chưa căt'}</td>

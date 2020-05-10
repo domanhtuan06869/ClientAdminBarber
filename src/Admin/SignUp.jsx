@@ -48,7 +48,7 @@ export default class SignUp extends Component {
       <div class="row mt-5">
         <div class="col-md-6 m-auto">
           <div class="card card-body">
-            <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  SignUp</h1>
+            <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>Đăng kí</h1>
 
             <form onSubmit={this.onSubmit}>
               <div class="form-group">

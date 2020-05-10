@@ -12,6 +12,7 @@ function Oders(props) {
     const [listOder, setListOder] = useState([])
     const [findOder, setFindOder] = useState('')
     let listFindOder = listOder.filter(item => item._id.includes(findOder));
+    const [sum, setSum] = useState([])
 
     useEffect(() => {
         props.setColor()
@@ -21,6 +22,7 @@ function Oders(props) {
         const { data } = await axios('/getOders?status=' + "0");
         setListOder(data)
         setLoading(false)
+
     }
 
 
@@ -30,16 +32,48 @@ function Oders(props) {
         const value = text.target.value
         const { data } = await axios('/getOders?status=' + value);
         setListOder(data)
+        let a = 0;
+        data.map((item) => {
+            if (item.__v === 2) {
+                a += item.amountProduct * item.priceProduct
+                setSum(a)
+            }
+        })
         setLoading(false)
     }
 
-    const updateOder = async (v, id) => {
+    const updateOder = async (v, id, amount, name) => {
         callApi('post', '/updateOder', {
             id: id,
             v: v,
         }).then(() => {
+            if (v === 1) {
+                updateAmountProduct(Number(-amount), name)
+            }
             swal()
-            setListOder(state => state.filter((item) => item._id != id))
+            setListOder(state => state.filter((item) => item._id !== id))
+        })
+    }
+
+    const updateOderTc = async (v, id, amount, name) => {
+        callApi('post', '/updateOder', {
+            id: id,
+            v: v,
+        }).then(() => {
+            if (v === 3) {
+                updateAmountProduct(Number(amount), name)
+            }
+            swal()
+            setListOder(state => state.filter((item) => item._id !== id))
+        })
+    }
+
+
+    const updateAmountProduct = async (amount, name) => {
+        callApi('post', '/updateAmountProduct', {
+            amount: amount,
+            name: name,
+        }).then(() => {
         })
     }
 
@@ -48,7 +82,7 @@ function Oders(props) {
             id: id,
         }).then(() => {
             swal()
-            setListOder(state => state.filter((item) => item._id != id))
+            setListOder(state => state.filter((item) => item._id !== id))
         })
     }
 
@@ -62,7 +96,7 @@ function Oders(props) {
         if (selected === "0") {
             return (
                 <div>
-                    <div> <button style={{ fontSize: 11 }} onClick={() => updateOder(1, props.id)} className="btn btn-info">Xác nhận gửi</button></div>
+                    <div> <button style={{ fontSize: 11 }} onClick={() => updateOder(1, props.id, props.amount, props.name)} className="btn btn-info">Xác nhận gửi</button></div>
                     <div> <button style={{ fontSize: 11, marginTop: 5 }} onClick={() => updateOder(3, props.id)} className="btn btn-danger"> Hủy</button></div>
                 </div>
             )
@@ -70,7 +104,7 @@ function Oders(props) {
             return (
                 <div>
                     <button onClick={() => updateOder(2, props.id)} style={{ fontSize: 11 }} className="btn btn-info"> Xác nhận thành công</button>
-                    <div> <button style={{ fontSize: 11, marginTop: 5 }} onClick={() => updateOder(3, props.id)} className="btn btn-danger"> Hủy</button></div>
+                    <div> <button style={{ fontSize: 11, marginTop: 5 }} onClick={() => updateOderTc(3, props.id, props.amount, props.name)} className="btn btn-danger"> Hủy</button></div>
                 </div>
             )
         } else if (selected === "3") {
@@ -104,6 +138,8 @@ function Oders(props) {
                     </select>
                 </div>
                 <div style={{ marginTop: 30 }} className="col-lg-2"><p style={{ fontWeight: 'bold', marginTop: 10 }}>Tổng : {listOder.length}</p></div>
+                {selected === '2' ? <div style={{ marginTop: 30 }} className="col-lg-4"><p style={{ fontWeight: 'bold', marginTop: 10 }}>Tổng doanh thu: {sum}</p></div> : null}
+
             </div>
             <div style={{ paddingLeft: 0, paddingRight: 0 }} className="row">
                 <div style={{ paddingLeft: 0, paddingRight: 0 }} className="col-lg-3">
@@ -149,11 +185,11 @@ function Oders(props) {
                                             <td>{item.fullName}</td>
                                             <td>{item.phoneNumber}</td>
                                             <td>{item.address}</td>
-                                            <td>{item.priceProduct} vnđ</td>
+                                            <td>{item.priceProduct} VNĐ</td>
                                             <td>{item.amountProduct}</td>
-                                            <td>{item.amountProduct * item.priceProduct} vnđ</td>
+                                            <td>{item.amountProduct * item.priceProduct} VNĐ</td>
                                             <td>
-                                                <CheckClick id={item._id}></CheckClick>
+                                                <CheckClick id={item._id} amount={item.amountProduct} name={item.nameProduct}></CheckClick>
                                             </td>
                                         </tr>
                                     )}

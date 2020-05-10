@@ -46,7 +46,7 @@ export default class Login extends Component {
       <div className="row mt-5">
       <div className="col-md-6 m-auto">
         <div className="card card-body">
-          <h1 className="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  Login</h1>
+          <h1 className="text-center mb-3"><i class="fas fa-sign-in-alt"></i>Đăng nhập</h1>
          
           <form onSubmit={this.onSubmit}>
             <div className="form-group">

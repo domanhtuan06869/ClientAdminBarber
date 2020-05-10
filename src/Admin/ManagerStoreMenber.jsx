@@ -8,6 +8,7 @@ import callApi from '../controller/resapi'
 import customStyles from '../controller/custom_modal'
 import { swal, swalErr } from '../controller/swal'
 
+
 function ManagerStoreMenber(props) {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -19,6 +20,7 @@ function ManagerStoreMenber(props) {
   const [listStoreMenber, setListStoreMenber] = useState('');
   const [nameMenber, setNameMenber] = useState('');
   const [ratingStylist, setRatingStylist] = useState('');
+  const [selectStore, setSelectStore] = useState('');
 
   const listStore = useSelector(state => state.reducerStore.data);
   const dispacth = useDispatch();
@@ -55,7 +57,10 @@ function ManagerStoreMenber(props) {
 
   const postMenber = async () => {
     if (!checkValidateMenber()) {
-      callApi('post', '/postMenber', { nameStylist: nameMenber, ratingStylist: ratingStylist }).then(() => {
+      callApi('post', '/postMenber', {
+        nameStylist: nameMenber, ratingStylist: ratingStylist,
+        locationStylist: selectStore
+      }).then(() => {
         setNameMenber('')
         setRatingStylist('');
         swal()
@@ -64,8 +69,8 @@ function ManagerStoreMenber(props) {
   }
 
   useEffect(() => {
-    getStore()
     props.setColor();
+    getStore()
   }, [])
 
   const checkValidateStore = () => {
@@ -78,7 +83,7 @@ function ManagerStoreMenber(props) {
   }
 
   const checkValidateMenber = () => {
-    if (nameMenber === '' || ratingStylist === '') {
+    if (nameMenber === '' || ratingStylist === '' || selectStore === '') {
       alert('Vui lòng nhập đủ các trường dữ liệu')
       return true
     } else {
@@ -157,6 +162,11 @@ function ManagerStoreMenber(props) {
       <h3>{title} </h3>
     )
   }
+
+  const handleChangeSelect = async text => {
+    setSelectStore(text.target.value)
+  }
+
   return (
     <div style={{ width: '100%' }}>
       <Modal
@@ -227,12 +237,20 @@ function ManagerStoreMenber(props) {
             </div>
             <div className="form-group">
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 placeholder="Số sao"
                 value={ratingStylist}
                 onChange={(e) => setRatingStylist(e.target.value)}
               />
+            </div>
+            <div className="form-group">
+              <select value={selectStore} onChange={handleChangeSelect} className="custom-select mr-sm-2" id="SelectAdrress">
+                <option value='' selected>Chọn một chi nhánh</option>
+                {listStore.map((item) => (
+                  <option key={item._id} value={item.addressLocation}>{item.addressLocation}</option>
+                ))}
+              </select>
             </div>
             <button style={{ float: 'right', marginLeft: 15 }} onClick={() => openModal('Menber')} className="btn btn-info">Xem</button>
             <button style={{ float: 'right' }} onClick={() => postMenber()} className="btn btn-info">Thêm</button>

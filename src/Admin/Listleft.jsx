@@ -9,6 +9,7 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import InFoIcon from '@material-ui/icons/Info';
+import HistoryIcon from '@material-ui/icons/History';
 import Iconseduche from '@material-ui/icons/CallReceivedOutlined';
 import Team from '@material-ui/icons/Person';
 
@@ -60,7 +61,7 @@ export const MainListItems = ({ color }) => (
         <ListItemIcon>
           <BarChartIcon htmlColor={color.colorProduct} lightingColor={color.colorProduct} />
         </ListItemIcon>
-        <ListItemText primary="Sẩn phẩm" />
+        <ListItemText primary="Sản phẩm" />
       </ListItem>
     </NavLink>
 
@@ -85,7 +86,7 @@ export const MainListItems = ({ color }) => (
     <NavLink style={{ color: color.colorHistory}} to='/history'>
       <ListItem button>
         <ListItemIcon>
-          <LayersIcon htmlColor={color.colorHistory} lightingColor={color.colorHistory} />
+          <HistoryIcon htmlColor={color.colorHistory} lightingColor={color.colorHistory} />
         </ListItemIcon>
         <ListItemText primary="Lịch sử khách cắt" />
       </ListItem>

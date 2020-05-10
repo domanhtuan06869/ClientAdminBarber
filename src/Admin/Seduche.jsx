@@ -126,7 +126,7 @@ function Schedule(props) {
                         </thead>
                         <tbody>
                             {listSchedule.map((item, index) =>
-                                <tr>
+                                <tr key={item._id}>
                                     <th scope="row">{index + 1}</th>
                                     <td>{item.locationSchedule}</td>
                                     <td>{item.timeSchedule}</td>

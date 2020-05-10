@@ -27,7 +27,7 @@ export const GetMenber = (data) => {
             {data.data.map((item) =>
                 <div style={{ marginTop: 5 }} class="card card-body">
                     <div key={item._id} className="row">
-                        <div className="col-lg-11">Họ tên: {item.nameStylist}. Số sao:{item.ratingStylist}</div>
+                        <div className="col-lg-11">Họ tên: {item.nameStylist}. Số sao:{item.ratingStylist}. Cơ sở :{item.locationStylist}</div>
                         <div className="col-lg-1"><DeleteIcon onClick={() => callApi('delete', '/deleteMenber', { id: item._id }).then(() => { data.getNew() })}></DeleteIcon></div>
                     </div>
                 </div>

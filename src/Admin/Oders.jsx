@@ -127,44 +127,39 @@ function Oders(props) {
                         </div >
                         :
                         <div ref={componentRef}>
-                            {
-                                <div style={{ marginTop: 10 }} className="row border border-dark">
-                                    <div style={{ fontWeight: 'bold' }} className="col-lg-2 border-right border-dark">Mã đơn</div>
-                                    <div style={{ fontWeight: 'bold' }} className="col-lg-2 border-right border-dark">Tên sản phẩm</div>
-                                    <div style={{ fontWeight: 'bold' }} className="col-lg-1 border-right border-dark">Tên khách hàng</div>
-                                    <div style={{ fontWeight: 'bold' }} className="col-lg-1 border-right border-dark">SĐT</div>
-                                    <div style={{ fontWeight: 'bold' }} className="col-lg-2 border-right border-dark">Địa chỉ</div>
-                                    <div style={{ fontWeight: 'bold' }} className="col-lg-1 border-right border-dark">Đơn giá</div>
-                                    <div style={{ fontWeight: 'bold' }} className="col-lg-1 border-right border-dark">Số lượng</div>
-                                    <div style={{ fontWeight: 'bold' }} className="col-lg-2">Thành tiền</div>
-                                </div>
-                            }
-                            {
-                                listFindOder.map((item) =>
-                                    <div key={item._id}>
-                                        <div style={{ marginTop: 10, paddingLeft: 0 }} key={item._id} className="row">
-                                            <div style={{ paddingLeft: 0, paddingRight: 3 }} className="col-lg-2">
-                                                {item._id}
-                                            </div>
-                                            <div className="col-lg-2">
-                                                {item.nameProduct}
-                                            </div>
-                                            <div className="col-lg-1">{item.fullName}</div>
-                                            <div className="col-lg-1">{item.phoneNumber}</div>
-                                            <div className="col-lg-2">{item.address}</div>
-                                            <div className="col-lg-1">{item.priceProduct} vnđ</div>
-                                            <div className="col-lg-1">{item.amountProduct}</div>
-                                            <div className="col-lg-2">
-                                                <div>{item.amountProduct * item.priceProduct} vnđ</div>
-                                                <div>
-                                                    <CheckClick id={item._id}></CheckClick>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr style={{ height: 0.5, backgroundColor: '#ccc', color: '#ccc' }} />
-                                    </div>
-                                )
-                            }</div>
+                            <table style={{ marginTop: 15 }} className="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Mã đơn</th>
+                                        <th scope="col">Tên sản phẩm</th>
+                                        <th scope="col">Tên khách hàng</th>
+                                        <th scope="col">SĐT</th>
+                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Đơn giá</th>
+                                        <th scope="col">Số lượng</th>
+                                        <th scope="col">Thành tiền</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {listFindOder.map((item, index) =>
+                                        <tr key={item._id}>
+                                            <td>  {item._id}</td>
+                                            <td>  {item.nameProduct}</td>
+                                            <td>{item.fullName}</td>
+                                            <td>{item.phoneNumber}</td>
+                                            <td>{item.address}</td>
+                                            <td>{item.priceProduct} vnđ</td>
+                                            <td>{item.amountProduct}</td>
+                                            <td>{item.amountProduct * item.priceProduct} vnđ</td>
+                                            <td>
+                                                <CheckClick id={item._id}></CheckClick>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                 }
 
             </div>

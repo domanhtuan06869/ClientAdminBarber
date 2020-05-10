@@ -1,31 +1,27 @@
 import React, { useRef, useState, useEffect } from 'react'
-import close from '../assets/image/close.png'
+import callApi from '../controller/resapi'
+import { swal, swalErr } from '../controller/swal'
 
-import axios from 'axios'
-import Modal from 'react-modal';
-import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Swal from "sweetalert2";
-
-const customStyles = {
-    content: {
-        width: '70%',
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        opacity: '80%',
-        background: 'linear-gradient(to right, #ffffff 29%, #ffffff 96%)',
-        marginTop: '5%'
-    }
-};
 function Pushnotification(props) {
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('')
 
     useEffect(() => {
         props.setColor()
     }, [])
+
+
+    const  pushNotify = async (id) => {
+        callApi('post', '/pusher', {
+            title: title,
+            content: content
+        }).then(() => {
+            swal()
+            setTitle('')
+            setContent('')
+        }).catch(() => swalErr())
+    }
+
 
     return (
         <div>
@@ -37,23 +33,25 @@ function Pushnotification(props) {
                         type="text"
                         className="form-control"
                         placeholder="Tiêu đề"
-                    //  value={name}
-                    // onChange={(e) => setName(e.target.value)}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
             </div>
             <div>
-                <label>Tiêu đề</label>
+                <label>Nội dung</label>
                 <div className="form-group">
                     <input
                         type="text"
                         className="form-control"
                         placeholder="Nội dung"
-                    //  value={name}
-                    // onChange={(e) => setName(e.target.value)}
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
                     />
                 </div>
             </div>
+            <button onClick={pushNotify} className="btn btn-info mt-20">Gửi thông báo</button>
+
         </div>
     )
 }

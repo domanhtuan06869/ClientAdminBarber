@@ -202,14 +202,13 @@ function Products(props) {
                     <ListType></ListType>
                     <div style={{ marginTop: 10 }} className="row">
                         {listProduct.map((item) =>
-                            <div style={{ marginTop: 10 }} className="col-lg-3">
+                            <div style={{ marginTop: 10 }} key={item._id} className="col-lg-3">
                                 <div class="card">
                                     <img style={{ height: 250 }} className="card-img-top img-fluid img-thumbnail" src={item.imageProduct} alt="Card image cap" />
                                     <div className="card-body">
-                                        <h5 className="card-title">{item.typeProduct}</h5>
-                                        <p style={{ fontWeight: 'bold' }} class="card-text">{item.priceProduct} đ</p>
-                                        <p className="card-text">{item.nameProduct}</p>
-                                        <p style={{ fontWeight: 'bold' }} class="card-text">Đánh giá :{item.ratingProduct} Sao </p>
+                                        <p style={{ fontWeight: 'bold', marginBottom: 0  }} >{item.nameProduct}</p>
+                                        <p style={{ color: 'red', fontWeight: "bold", marginTop: 0, marginBottom: 0 }} >{item.priceProduct} đ</p>
+                                        <h5>{item.typeProduct}</h5>
                                         <button onClick={() => openModalEdit('Sửa', item._id, item.priceProduct, item.nameProduct, item.descriptionProduct, item.typeProduct, item.imageProduct, item.ratingProduct)} class="btn btn-primary">Sửa</button>
                                         <button onClick={() => deleteProduct(item._id)} style={{ marginLeft: 10 }} class="btn btn-danger">Xóa</button>
                                     </div>
@@ -267,7 +266,7 @@ function Products(props) {
                     </div>
                     <div className="form-group">
                         <label className="mr-sm-2" htmlFor="SelectAdrress">Chọn theo thể loại</label>
-                        <select defaultValue="0" value={type} onChange={(e=>setType(e.target.value))} name="Chọn một trạng thái" className="custom-select mr-sm-2" id="SelectAdrress">
+                        <select defaultValue="0" value={type} onChange={(e => setType(e.target.value))} name="Chọn một trạng thái" className="custom-select mr-sm-2" id="SelectAdrress">
                             <option value="0">Chọn một danh mục sản phẩm</option>
                             {unique.map((item) =>
                                 <option value={item}>{item}</option>

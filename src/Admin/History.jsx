@@ -28,7 +28,7 @@ function Oders(props) {
     const [fileimg, setFile] = useState('')
     const [id, setId] = useState('')
 
-    let listFindHistory = listSchedule.filter(item => item._id.includes(findSchedule));
+    let listFindHistory = listSchedule.filter(item => item.phoneSchedule.includes(findSchedule));
 
 
     useEffect(() => {
